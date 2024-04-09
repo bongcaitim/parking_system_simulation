@@ -350,7 +350,18 @@
           </formatted-text>
         </desc>
       </column>
+      <column-instance column='[begin time]' derivation='None' name='[none:begin time:qk]' pivot='key' type='quantitative' />
+      <column-instance column='[event]' derivation='None' name='[none:event:nk]' pivot='key' type='nominal' />
       <column-instance column='[person]' derivation='None' name='[none:person:nk]' pivot='key' type='nominal' />
+      <column-instance column='[selected line]' derivation='None' name='[none:selected line:nk]' pivot='key' type='nominal' />
+      <group hidden='true' name='[Exclusions (Begin Time,Event,Person,Selected Line)]' name-style='unqualified' user:auto-column='exclude'>
+        <groupfilter function='crossjoin'>
+          <groupfilter function='level-members' level='[none:begin time:qk]' />
+          <groupfilter function='level-members' level='[none:event:nk]' />
+          <groupfilter function='level-members' level='[none:person:nk]' />
+          <groupfilter function='level-members' level='[none:selected line:nk]' />
+        </groupfilter>
+      </group>
       <_.fcp.SchemaViewerObjectModel.false...folder name='Events' role='dimensions'>
         <folder-item name='[Document Index (generated)]' type='field' />
         <folder-item name='[begin time]' type='field' />
@@ -28061,7 +28072,7 @@
     </datasource>
   </datasources>
   <worksheets>
-    <worksheet name='Sheet 1'>
+    <worksheet name='All lines'>
       <table>
         <view>
           <datasources>
@@ -28113,6 +28124,498 @@
             <column-instance column='[Calculation_386465144428855296]' derivation='Sum' name='[sum:Calculation_386465144428855296:qk]' pivot='key' type='quantitative' />
             <column-instance column='[begin time]' derivation='Minute-Trunc' name='[tmi:begin time:qk]' pivot='key' type='quantitative' />
           </datasource-dependencies>
+          <filter class='categorical' column='[federated.04ihfrx0rvdbss15cjucn1l212ye].[Exclusions (Begin Time,Event,Person,Selected Line)]'>
+            <groupfilter function='except' user:ui-domain='database' user:ui-enumeration='exclusive' user:ui-marker='enumerate'>
+              <groupfilter function='crossjoin'>
+                <groupfilter function='level-members' level='[none:begin time:qk]' />
+                <groupfilter function='level-members' level='[none:event:nk]' />
+                <groupfilter function='level-members' level='[none:person:nk]' />
+                <groupfilter function='level-members' level='[none:selected line:nk]' />
+              </groupfilter>
+              <groupfilter function='reorder-dimensionality'>
+                <groupfilter function='union'>
+                  <groupfilter function='crossjoin'>
+                    <groupfilter function='member' level='[none:event:nk]' member='&quot;SCAN TICKET&quot;' />
+                    <groupfilter function='union'>
+                      <groupfilter function='crossjoin'>
+                        <groupfilter function='member' level='[none:selected line:nk]' member='&quot;RFID_1&quot;' />
+                        <groupfilter function='union'>
+                          <groupfilter function='crossjoin'>
+                            <groupfilter function='member' level='[none:begin time:qk]' member='#1900-01-01 18:33:02#' />
+                            <groupfilter function='member' level='[none:person:nk]' member='&quot;id_7538&quot;' />
+                          </groupfilter>
+                          <groupfilter function='crossjoin'>
+                            <groupfilter function='member' level='[none:begin time:qk]' member='#1900-01-01 18:33:10#' />
+                            <groupfilter function='member' level='[none:person:nk]' member='&quot;id_7542&quot;' />
+                          </groupfilter>
+                          <groupfilter function='crossjoin'>
+                            <groupfilter function='member' level='[none:begin time:qk]' member='#1900-01-01 18:33:18#' />
+                            <groupfilter function='member' level='[none:person:nk]' member='&quot;id_7544&quot;' />
+                          </groupfilter>
+                          <groupfilter function='crossjoin'>
+                            <groupfilter function='member' level='[none:begin time:qk]' member='#1900-01-01 18:33:23#' />
+                            <groupfilter function='member' level='[none:person:nk]' member='&quot;id_7546&quot;' />
+                          </groupfilter>
+                          <groupfilter function='crossjoin'>
+                            <groupfilter function='member' level='[none:begin time:qk]' member='#1900-01-01 18:33:28#' />
+                            <groupfilter function='member' level='[none:person:nk]' member='&quot;id_7549&quot;' />
+                          </groupfilter>
+                          <groupfilter function='crossjoin'>
+                            <groupfilter function='member' level='[none:begin time:qk]' member='#1900-01-01 18:33:36#' />
+                            <groupfilter function='member' level='[none:person:nk]' member='&quot;id_7550&quot;' />
+                          </groupfilter>
+                          <groupfilter function='crossjoin'>
+                            <groupfilter function='member' level='[none:begin time:qk]' member='#1900-01-01 18:33:46#' />
+                            <groupfilter function='member' level='[none:person:nk]' member='&quot;id_7552&quot;' />
+                          </groupfilter>
+                          <groupfilter function='crossjoin'>
+                            <groupfilter function='member' level='[none:begin time:qk]' member='#1900-01-01 18:33:55#' />
+                            <groupfilter function='member' level='[none:person:nk]' member='&quot;id_7557&quot;' />
+                          </groupfilter>
+                          <groupfilter function='crossjoin'>
+                            <groupfilter function='member' level='[none:begin time:qk]' member='#1900-01-01 18:34:05#' />
+                            <groupfilter function='member' level='[none:person:nk]' member='&quot;id_7558&quot;' />
+                          </groupfilter>
+                          <groupfilter function='crossjoin'>
+                            <groupfilter function='member' level='[none:begin time:qk]' member='#1900-01-01 18:34:11#' />
+                            <groupfilter function='member' level='[none:person:nk]' member='&quot;id_7560&quot;' />
+                          </groupfilter>
+                          <groupfilter function='crossjoin'>
+                            <groupfilter function='member' level='[none:begin time:qk]' member='#1900-01-01 18:34:16#' />
+                            <groupfilter function='member' level='[none:person:nk]' member='&quot;id_7562&quot;' />
+                          </groupfilter>
+                          <groupfilter function='crossjoin'>
+                            <groupfilter function='member' level='[none:begin time:qk]' member='#1900-01-01 18:34:22#' />
+                            <groupfilter function='member' level='[none:person:nk]' member='&quot;id_7564&quot;' />
+                          </groupfilter>
+                          <groupfilter function='crossjoin'>
+                            <groupfilter function='member' level='[none:begin time:qk]' member='#1900-01-01 18:34:29#' />
+                            <groupfilter function='member' level='[none:person:nk]' member='&quot;id_7565&quot;' />
+                          </groupfilter>
+                          <groupfilter function='crossjoin'>
+                            <groupfilter function='member' level='[none:begin time:qk]' member='#1900-01-01 18:34:37#' />
+                            <groupfilter function='member' level='[none:person:nk]' member='&quot;id_7569&quot;' />
+                          </groupfilter>
+                        </groupfilter>
+                      </groupfilter>
+                      <groupfilter function='crossjoin'>
+                        <groupfilter function='member' level='[none:selected line:nk]' member='&quot;RFID_2&quot;' />
+                        <groupfilter function='union'>
+                          <groupfilter function='crossjoin'>
+                            <groupfilter function='member' level='[none:begin time:qk]' member='#1900-01-01 18:33:05#' />
+                            <groupfilter function='member' level='[none:person:nk]' member='&quot;id_7539&quot;' />
+                          </groupfilter>
+                          <groupfilter function='crossjoin'>
+                            <groupfilter function='member' level='[none:begin time:qk]' member='#1900-01-01 18:33:10#' />
+                            <groupfilter function='member' level='[none:person:nk]' member='&quot;id_7540&quot;' />
+                          </groupfilter>
+                          <groupfilter function='crossjoin'>
+                            <groupfilter function='member' level='[none:begin time:qk]' member='#1900-01-01 18:33:22#' />
+                            <groupfilter function='member' level='[none:person:nk]' member='&quot;id_7545&quot;' />
+                          </groupfilter>
+                          <groupfilter function='crossjoin'>
+                            <groupfilter function='member' level='[none:begin time:qk]' member='#1900-01-01 18:33:29#' />
+                            <groupfilter function='member' level='[none:person:nk]' member='&quot;id_7547&quot;' />
+                          </groupfilter>
+                          <groupfilter function='crossjoin'>
+                            <groupfilter function='member' level='[none:begin time:qk]' member='#1900-01-01 18:33:38#' />
+                            <groupfilter function='member' level='[none:person:nk]' member='&quot;id_7548&quot;' />
+                          </groupfilter>
+                          <groupfilter function='crossjoin'>
+                            <groupfilter function='member' level='[none:begin time:qk]' member='#1900-01-01 18:33:46#' />
+                            <groupfilter function='member' level='[none:person:nk]' member='&quot;id_7551&quot;' />
+                          </groupfilter>
+                          <groupfilter function='crossjoin'>
+                            <groupfilter function='member' level='[none:begin time:qk]' member='#1900-01-01 18:33:56#' />
+                            <groupfilter function='member' level='[none:person:nk]' member='&quot;id_7553&quot;' />
+                          </groupfilter>
+                          <groupfilter function='crossjoin'>
+                            <groupfilter function='member' level='[none:begin time:qk]' member='#1900-01-01 18:34:02#' />
+                            <groupfilter function='member' level='[none:person:nk]' member='&quot;id_7554&quot;' />
+                          </groupfilter>
+                          <groupfilter function='crossjoin'>
+                            <groupfilter function='member' level='[none:begin time:qk]' member='#1900-01-01 18:34:12#' />
+                            <groupfilter function='member' level='[none:person:nk]' member='&quot;id_7556&quot;' />
+                          </groupfilter>
+                          <groupfilter function='crossjoin'>
+                            <groupfilter function='member' level='[none:begin time:qk]' member='#1900-01-01 18:34:21#' />
+                            <groupfilter function='member' level='[none:person:nk]' member='&quot;id_7559&quot;' />
+                          </groupfilter>
+                          <groupfilter function='crossjoin'>
+                            <groupfilter function='member' level='[none:begin time:qk]' member='#1900-01-01 18:34:32#' />
+                            <groupfilter function='member' level='[none:person:nk]' member='&quot;id_7561&quot;' />
+                          </groupfilter>
+                          <groupfilter function='crossjoin'>
+                            <groupfilter function='member' level='[none:begin time:qk]' member='#1900-01-01 18:34:38#' />
+                            <groupfilter function='member' level='[none:person:nk]' member='&quot;id_7566&quot;' />
+                          </groupfilter>
+                        </groupfilter>
+                      </groupfilter>
+                      <groupfilter function='crossjoin'>
+                        <groupfilter function='member' level='[none:selected line:nk]' member='&quot;paper_1&quot;' />
+                        <groupfilter function='union'>
+                          <groupfilter function='crossjoin'>
+                            <groupfilter function='member' level='[none:begin time:qk]' member='#1900-01-01 18:33:10#' />
+                            <groupfilter function='member' level='[none:person:nk]' member='&quot;id_7555&quot;' />
+                          </groupfilter>
+                          <groupfilter function='crossjoin'>
+                            <groupfilter function='member' level='[none:begin time:qk]' member='#1900-01-01 18:33:25#' />
+                            <groupfilter function='member' level='[none:person:nk]' member='&quot;id_7567&quot;' />
+                          </groupfilter>
+                          <groupfilter function='crossjoin'>
+                            <groupfilter function='member' level='[none:begin time:qk]' member='#1900-01-01 18:33:36#' />
+                            <groupfilter function='member' level='[none:person:nk]' member='&quot;id_7568&quot;' />
+                          </groupfilter>
+                        </groupfilter>
+                      </groupfilter>
+                      <groupfilter function='crossjoin'>
+                        <groupfilter function='member' level='[none:selected line:nk]' member='&quot;paper_2&quot;' />
+                        <groupfilter function='union'>
+                          <groupfilter function='crossjoin'>
+                            <groupfilter function='member' level='[none:begin time:qk]' member='#1900-01-01 18:33:14#' />
+                            <groupfilter function='member' level='[none:person:nk]' member='&quot;id_7541&quot;' />
+                          </groupfilter>
+                          <groupfilter function='crossjoin'>
+                            <groupfilter function='member' level='[none:begin time:qk]' member='#1900-01-01 18:33:27#' />
+                            <groupfilter function='member' level='[none:person:nk]' member='&quot;id_7563&quot;' />
+                          </groupfilter>
+                        </groupfilter>
+                      </groupfilter>
+                    </groupfilter>
+                  </groupfilter>
+                  <groupfilter function='crossjoin'>
+                    <groupfilter function='member' level='[none:event:nk]' member='&quot;WAITING TO BE SCANNED&quot;' />
+                    <groupfilter function='union'>
+                      <groupfilter function='crossjoin'>
+                        <groupfilter function='member' level='[none:selected line:nk]' member='&quot;RFID_1&quot;' />
+                        <groupfilter function='union'>
+                          <groupfilter function='crossjoin'>
+                            <groupfilter function='member' level='[none:begin time:qk]' member='#1900-01-01 18:34:52#' />
+                            <groupfilter function='member' level='[none:person:nk]' member='&quot;id_7633&quot;' />
+                          </groupfilter>
+                          <groupfilter function='crossjoin'>
+                            <groupfilter function='member' level='[none:begin time:qk]' member='#1900-01-01 18:34:56#' />
+                            <groupfilter function='member' level='[none:person:nk]' member='&quot;id_7634&quot;' />
+                          </groupfilter>
+                          <groupfilter function='crossjoin'>
+                            <groupfilter function='member' level='[none:begin time:qk]' member='#1900-01-01 18:35:00#' />
+                            <groupfilter function='member' level='[none:person:nk]' member='&quot;id_7639&quot;' />
+                          </groupfilter>
+                          <groupfilter function='crossjoin'>
+                            <groupfilter function='member' level='[none:begin time:qk]' member='#1900-01-01 18:35:07#' />
+                            <groupfilter function='member' level='[none:person:nk]' member='&quot;id_7643&quot;' />
+                          </groupfilter>
+                          <groupfilter function='crossjoin'>
+                            <groupfilter function='member' level='[none:begin time:qk]' member='#1900-01-01 18:35:13#' />
+                            <groupfilter function='member' level='[none:person:nk]' member='&quot;id_7645&quot;' />
+                          </groupfilter>
+                          <groupfilter function='crossjoin'>
+                            <groupfilter function='member' level='[none:begin time:qk]' member='#1900-01-01 18:35:18#' />
+                            <groupfilter function='member' level='[none:person:nk]' member='&quot;id_7647&quot;' />
+                          </groupfilter>
+                          <groupfilter function='crossjoin'>
+                            <groupfilter function='member' level='[none:begin time:qk]' member='#1900-01-01 18:35:24#' />
+                            <groupfilter function='member' level='[none:person:nk]' member='&quot;id_7650&quot;' />
+                          </groupfilter>
+                          <groupfilter function='crossjoin'>
+                            <groupfilter function='member' level='[none:begin time:qk]' member='#1900-01-01 18:35:27#' />
+                            <groupfilter function='member' level='[none:person:nk]' member='&quot;id_7651&quot;' />
+                          </groupfilter>
+                          <groupfilter function='crossjoin'>
+                            <groupfilter function='member' level='[none:begin time:qk]' member='#1900-01-01 18:35:36#' />
+                            <groupfilter function='member' level='[none:person:nk]' member='&quot;id_7654&quot;' />
+                          </groupfilter>
+                          <groupfilter function='crossjoin'>
+                            <groupfilter function='member' level='[none:begin time:qk]' member='#1900-01-01 18:35:42#' />
+                            <groupfilter function='member' level='[none:person:nk]' member='&quot;id_7658&quot;' />
+                          </groupfilter>
+                          <groupfilter function='crossjoin'>
+                            <groupfilter function='member' level='[none:begin time:qk]' member='#1900-01-01 18:35:51#' />
+                            <groupfilter function='member' level='[none:person:nk]' member='&quot;id_7662&quot;' />
+                          </groupfilter>
+                          <groupfilter function='crossjoin'>
+                            <groupfilter function='member' level='[none:begin time:qk]' member='#1900-01-01 18:36:00#' />
+                            <groupfilter function='member' level='[none:person:nk]' member='&quot;id_7667&quot;' />
+                          </groupfilter>
+                          <groupfilter function='crossjoin'>
+                            <groupfilter function='member' level='[none:begin time:qk]' member='#1900-01-01 18:36:04#' />
+                            <groupfilter function='member' level='[none:person:nk]' member='&quot;id_7668&quot;' />
+                          </groupfilter>
+                          <groupfilter function='crossjoin'>
+                            <groupfilter function='member' level='[none:begin time:qk]' member='#1900-01-01 18:36:14#' />
+                            <groupfilter function='member' level='[none:person:nk]' member='&quot;id_7672&quot;' />
+                          </groupfilter>
+                          <groupfilter function='crossjoin'>
+                            <groupfilter function='member' level='[none:begin time:qk]' member='#1900-01-01 18:36:17#' />
+                            <groupfilter function='member' level='[none:person:nk]' member='&quot;id_7673&quot;' />
+                          </groupfilter>
+                          <groupfilter function='crossjoin'>
+                            <groupfilter function='member' level='[none:begin time:qk]' member='#1900-01-01 18:36:20#' />
+                            <groupfilter function='member' level='[none:person:nk]' member='&quot;id_7676&quot;' />
+                          </groupfilter>
+                          <groupfilter function='crossjoin'>
+                            <groupfilter function='member' level='[none:begin time:qk]' member='#1900-01-01 18:36:30#' />
+                            <groupfilter function='member' level='[none:person:nk]' member='&quot;id_7679&quot;' />
+                          </groupfilter>
+                          <groupfilter function='crossjoin'>
+                            <groupfilter function='member' level='[none:begin time:qk]' member='#1900-01-01 18:36:34#' />
+                            <groupfilter function='member' level='[none:person:nk]' member='&quot;id_7683&quot;' />
+                          </groupfilter>
+                          <groupfilter function='crossjoin'>
+                            <groupfilter function='member' level='[none:begin time:qk]' member='#1900-01-01 18:36:41#' />
+                            <groupfilter function='member' level='[none:person:nk]' member='&quot;id_7684&quot;' />
+                          </groupfilter>
+                          <groupfilter function='crossjoin'>
+                            <groupfilter function='member' level='[none:begin time:qk]' member='#1900-01-01 18:36:46#' />
+                            <groupfilter function='member' level='[none:person:nk]' member='&quot;id_7686&quot;' />
+                          </groupfilter>
+                          <groupfilter function='crossjoin'>
+                            <groupfilter function='member' level='[none:begin time:qk]' member='#1900-01-01 18:36:53#' />
+                            <groupfilter function='member' level='[none:person:nk]' member='&quot;id_7689&quot;' />
+                          </groupfilter>
+                          <groupfilter function='crossjoin'>
+                            <groupfilter function='member' level='[none:begin time:qk]' member='#1900-01-01 18:37:02#' />
+                            <groupfilter function='union'>
+                              <groupfilter function='member' level='[none:person:nk]' member='&quot;id_7694&quot;' />
+                              <groupfilter function='member' level='[none:person:nk]' member='&quot;id_7695&quot;' />
+                            </groupfilter>
+                          </groupfilter>
+                          <groupfilter function='crossjoin'>
+                            <groupfilter function='member' level='[none:begin time:qk]' member='#1900-01-01 18:37:05#' />
+                            <groupfilter function='member' level='[none:person:nk]' member='&quot;id_7698&quot;' />
+                          </groupfilter>
+                          <groupfilter function='crossjoin'>
+                            <groupfilter function='member' level='[none:begin time:qk]' member='#1900-01-01 18:37:10#' />
+                            <groupfilter function='member' level='[none:person:nk]' member='&quot;id_7702&quot;' />
+                          </groupfilter>
+                          <groupfilter function='crossjoin'>
+                            <groupfilter function='member' level='[none:begin time:qk]' member='#1900-01-01 18:37:13#' />
+                            <groupfilter function='member' level='[none:person:nk]' member='&quot;id_7704&quot;' />
+                          </groupfilter>
+                          <groupfilter function='crossjoin'>
+                            <groupfilter function='member' level='[none:begin time:qk]' member='#1900-01-01 18:37:14#' />
+                            <groupfilter function='member' level='[none:person:nk]' member='&quot;id_7705&quot;' />
+                          </groupfilter>
+                          <groupfilter function='crossjoin'>
+                            <groupfilter function='member' level='[none:begin time:qk]' member='#1900-01-01 18:37:19#' />
+                            <groupfilter function='member' level='[none:person:nk]' member='&quot;id_7707&quot;' />
+                          </groupfilter>
+                          <groupfilter function='crossjoin'>
+                            <groupfilter function='member' level='[none:begin time:qk]' member='#1900-01-01 18:37:20#' />
+                            <groupfilter function='member' level='[none:person:nk]' member='&quot;id_7709&quot;' />
+                          </groupfilter>
+                          <groupfilter function='crossjoin'>
+                            <groupfilter function='member' level='[none:begin time:qk]' member='#1900-01-01 18:37:22#' />
+                            <groupfilter function='member' level='[none:person:nk]' member='&quot;id_7710&quot;' />
+                          </groupfilter>
+                          <groupfilter function='crossjoin'>
+                            <groupfilter function='member' level='[none:begin time:qk]' member='#1900-01-01 18:37:30#' />
+                            <groupfilter function='member' level='[none:person:nk]' member='&quot;id_7713&quot;' />
+                          </groupfilter>
+                          <groupfilter function='crossjoin'>
+                            <groupfilter function='member' level='[none:begin time:qk]' member='#1900-01-01 18:37:45#' />
+                            <groupfilter function='member' level='[none:person:nk]' member='&quot;id_7720&quot;' />
+                          </groupfilter>
+                          <groupfilter function='crossjoin'>
+                            <groupfilter function='member' level='[none:begin time:qk]' member='#1900-01-01 18:37:49#' />
+                            <groupfilter function='member' level='[none:person:nk]' member='&quot;id_7722&quot;' />
+                          </groupfilter>
+                          <groupfilter function='crossjoin'>
+                            <groupfilter function='member' level='[none:begin time:qk]' member='#1900-01-01 18:37:51#' />
+                            <groupfilter function='member' level='[none:person:nk]' member='&quot;id_7723&quot;' />
+                          </groupfilter>
+                        </groupfilter>
+                      </groupfilter>
+                      <groupfilter function='crossjoin'>
+                        <groupfilter function='member' level='[none:selected line:nk]' member='&quot;RFID_2&quot;' />
+                        <groupfilter function='union'>
+                          <groupfilter function='crossjoin'>
+                            <groupfilter function='member' level='[none:begin time:qk]' member='#1900-01-01 18:34:21#' />
+                            <groupfilter function='member' level='[none:person:nk]' member='&quot;id_7617&quot;' />
+                          </groupfilter>
+                          <groupfilter function='crossjoin'>
+                            <groupfilter function='member' level='[none:begin time:qk]' member='#1900-01-01 18:34:36#' />
+                            <groupfilter function='member' level='[none:person:nk]' member='&quot;id_7622&quot;' />
+                          </groupfilter>
+                          <groupfilter function='crossjoin'>
+                            <groupfilter function='member' level='[none:begin time:qk]' member='#1900-01-01 18:34:47#' />
+                            <groupfilter function='member' level='[none:person:nk]' member='&quot;id_7628&quot;' />
+                          </groupfilter>
+                          <groupfilter function='crossjoin'>
+                            <groupfilter function='member' level='[none:begin time:qk]' member='#1900-01-01 18:34:51#' />
+                            <groupfilter function='member' level='[none:person:nk]' member='&quot;id_7630&quot;' />
+                          </groupfilter>
+                          <groupfilter function='crossjoin'>
+                            <groupfilter function='member' level='[none:begin time:qk]' member='#1900-01-01 18:34:52#' />
+                            <groupfilter function='member' level='[none:person:nk]' member='&quot;id_7631&quot;' />
+                          </groupfilter>
+                          <groupfilter function='crossjoin'>
+                            <groupfilter function='member' level='[none:begin time:qk]' member='#1900-01-01 18:34:56#' />
+                            <groupfilter function='member' level='[none:person:nk]' member='&quot;id_7636&quot;' />
+                          </groupfilter>
+                          <groupfilter function='crossjoin'>
+                            <groupfilter function='member' level='[none:begin time:qk]' member='#1900-01-01 18:34:59#' />
+                            <groupfilter function='member' level='[none:person:nk]' member='&quot;id_7637&quot;' />
+                          </groupfilter>
+                          <groupfilter function='crossjoin'>
+                            <groupfilter function='member' level='[none:begin time:qk]' member='#1900-01-01 18:35:04#' />
+                            <groupfilter function='member' level='[none:person:nk]' member='&quot;id_7641&quot;' />
+                          </groupfilter>
+                          <groupfilter function='crossjoin'>
+                            <groupfilter function='member' level='[none:begin time:qk]' member='#1900-01-01 18:35:10#' />
+                            <groupfilter function='member' level='[none:person:nk]' member='&quot;id_7644&quot;' />
+                          </groupfilter>
+                          <groupfilter function='crossjoin'>
+                            <groupfilter function='member' level='[none:begin time:qk]' member='#1900-01-01 18:35:13#' />
+                            <groupfilter function='member' level='[none:person:nk]' member='&quot;id_7646&quot;' />
+                          </groupfilter>
+                          <groupfilter function='crossjoin'>
+                            <groupfilter function='member' level='[none:begin time:qk]' member='#1900-01-01 18:35:22#' />
+                            <groupfilter function='member' level='[none:person:nk]' member='&quot;id_7649&quot;' />
+                          </groupfilter>
+                          <groupfilter function='crossjoin'>
+                            <groupfilter function='member' level='[none:begin time:qk]' member='#1900-01-01 18:35:29#' />
+                            <groupfilter function='member' level='[none:person:nk]' member='&quot;id_7652&quot;' />
+                          </groupfilter>
+                          <groupfilter function='crossjoin'>
+                            <groupfilter function='member' level='[none:begin time:qk]' member='#1900-01-01 18:35:39#' />
+                            <groupfilter function='member' level='[none:person:nk]' member='&quot;id_7657&quot;' />
+                          </groupfilter>
+                          <groupfilter function='crossjoin'>
+                            <groupfilter function='member' level='[none:begin time:qk]' member='#1900-01-01 18:35:49#' />
+                            <groupfilter function='member' level='[none:person:nk]' member='&quot;id_7661&quot;' />
+                          </groupfilter>
+                          <groupfilter function='crossjoin'>
+                            <groupfilter function='member' level='[none:begin time:qk]' member='#1900-01-01 18:36:00#' />
+                            <groupfilter function='member' level='[none:person:nk]' member='&quot;id_7666&quot;' />
+                          </groupfilter>
+                          <groupfilter function='crossjoin'>
+                            <groupfilter function='member' level='[none:begin time:qk]' member='#1900-01-01 18:36:07#' />
+                            <groupfilter function='member' level='[none:person:nk]' member='&quot;id_7669&quot;' />
+                          </groupfilter>
+                          <groupfilter function='crossjoin'>
+                            <groupfilter function='member' level='[none:begin time:qk]' member='#1900-01-01 18:36:19#' />
+                            <groupfilter function='member' level='[none:person:nk]' member='&quot;id_7675&quot;' />
+                          </groupfilter>
+                          <groupfilter function='crossjoin'>
+                            <groupfilter function='member' level='[none:begin time:qk]' member='#1900-01-01 18:36:28#' />
+                            <groupfilter function='member' level='[none:person:nk]' member='&quot;id_7678&quot;' />
+                          </groupfilter>
+                          <groupfilter function='crossjoin'>
+                            <groupfilter function='member' level='[none:begin time:qk]' member='#1900-01-01 18:36:32#' />
+                            <groupfilter function='member' level='[none:person:nk]' member='&quot;id_7682&quot;' />
+                          </groupfilter>
+                          <groupfilter function='crossjoin'>
+                            <groupfilter function='member' level='[none:begin time:qk]' member='#1900-01-01 18:36:43#' />
+                            <groupfilter function='member' level='[none:person:nk]' member='&quot;id_7685&quot;' />
+                          </groupfilter>
+                          <groupfilter function='crossjoin'>
+                            <groupfilter function='member' level='[none:begin time:qk]' member='#1900-01-01 18:36:50#' />
+                            <groupfilter function='member' level='[none:person:nk]' member='&quot;id_7688&quot;' />
+                          </groupfilter>
+                          <groupfilter function='crossjoin'>
+                            <groupfilter function='member' level='[none:begin time:qk]' member='#1900-01-01 18:36:54#' />
+                            <groupfilter function='member' level='[none:person:nk]' member='&quot;id_7690&quot;' />
+                          </groupfilter>
+                          <groupfilter function='crossjoin'>
+                            <groupfilter function='member' level='[none:begin time:qk]' member='#1900-01-01 18:36:57#' />
+                            <groupfilter function='member' level='[none:person:nk]' member='&quot;id_7691&quot;' />
+                          </groupfilter>
+                          <groupfilter function='crossjoin'>
+                            <groupfilter function='member' level='[none:begin time:qk]' member='#1900-01-01 18:37:02#' />
+                            <groupfilter function='member' level='[none:person:nk]' member='&quot;id_7696&quot;' />
+                          </groupfilter>
+                          <groupfilter function='crossjoin'>
+                            <groupfilter function='member' level='[none:begin time:qk]' member='#1900-01-01 18:37:06#' />
+                            <groupfilter function='member' level='[none:person:nk]' member='&quot;id_7699&quot;' />
+                          </groupfilter>
+                          <groupfilter function='crossjoin'>
+                            <groupfilter function='member' level='[none:begin time:qk]' member='#1900-01-01 18:37:08#' />
+                            <groupfilter function='member' level='[none:person:nk]' member='&quot;id_7700&quot;' />
+                          </groupfilter>
+                          <groupfilter function='crossjoin'>
+                            <groupfilter function='member' level='[none:begin time:qk]' member='#1900-01-01 18:37:11#' />
+                            <groupfilter function='member' level='[none:person:nk]' member='&quot;id_7703&quot;' />
+                          </groupfilter>
+                          <groupfilter function='crossjoin'>
+                            <groupfilter function='member' level='[none:begin time:qk]' member='#1900-01-01 18:37:14#' />
+                            <groupfilter function='member' level='[none:person:nk]' member='&quot;id_7706&quot;' />
+                          </groupfilter>
+                          <groupfilter function='crossjoin'>
+                            <groupfilter function='member' level='[none:begin time:qk]' member='#1900-01-01 18:37:20#' />
+                            <groupfilter function='member' level='[none:person:nk]' member='&quot;id_7708&quot;' />
+                          </groupfilter>
+                          <groupfilter function='crossjoin'>
+                            <groupfilter function='member' level='[none:begin time:qk]' member='#1900-01-01 18:37:27#' />
+                            <groupfilter function='member' level='[none:person:nk]' member='&quot;id_7711&quot;' />
+                          </groupfilter>
+                          <groupfilter function='crossjoin'>
+                            <groupfilter function='member' level='[none:begin time:qk]' member='#1900-01-01 18:37:33#' />
+                            <groupfilter function='member' level='[none:person:nk]' member='&quot;id_7714&quot;' />
+                          </groupfilter>
+                          <groupfilter function='crossjoin'>
+                            <groupfilter function='member' level='[none:begin time:qk]' member='#1900-01-01 18:37:42#' />
+                            <groupfilter function='union'>
+                              <groupfilter function='member' level='[none:person:nk]' member='&quot;id_7718&quot;' />
+                              <groupfilter function='member' level='[none:person:nk]' member='&quot;id_7719&quot;' />
+                            </groupfilter>
+                          </groupfilter>
+                          <groupfilter function='crossjoin'>
+                            <groupfilter function='member' level='[none:begin time:qk]' member='#1900-01-01 18:37:48#' />
+                            <groupfilter function='member' level='[none:person:nk]' member='&quot;id_7721&quot;' />
+                          </groupfilter>
+                          <groupfilter function='crossjoin'>
+                            <groupfilter function='member' level='[none:begin time:qk]' member='#1900-01-01 18:37:55#' />
+                            <groupfilter function='member' level='[none:person:nk]' member='&quot;id_7724&quot;' />
+                          </groupfilter>
+                        </groupfilter>
+                      </groupfilter>
+                      <groupfilter function='crossjoin'>
+                        <groupfilter function='member' level='[none:selected line:nk]' member='&quot;paper_1&quot;' />
+                        <groupfilter function='union'>
+                          <groupfilter function='crossjoin'>
+                            <groupfilter function='member' level='[none:begin time:qk]' member='#1900-01-01 18:37:04#' />
+                            <groupfilter function='member' level='[none:person:nk]' member='&quot;id_7697&quot;' />
+                          </groupfilter>
+                          <groupfilter function='crossjoin'>
+                            <groupfilter function='member' level='[none:begin time:qk]' member='#1900-01-01 18:37:34#' />
+                            <groupfilter function='member' level='[none:person:nk]' member='&quot;id_7715&quot;' />
+                          </groupfilter>
+                          <groupfilter function='crossjoin'>
+                            <groupfilter function='member' level='[none:begin time:qk]' member='#1900-01-01 18:37:42#' />
+                            <groupfilter function='member' level='[none:person:nk]' member='&quot;id_7717&quot;' />
+                          </groupfilter>
+                        </groupfilter>
+                      </groupfilter>
+                      <groupfilter function='crossjoin'>
+                        <groupfilter function='member' level='[none:selected line:nk]' member='&quot;paper_2&quot;' />
+                        <groupfilter function='union'>
+                          <groupfilter function='crossjoin'>
+                            <groupfilter function='member' level='[none:begin time:qk]' member='#1900-01-01 18:37:10#' />
+                            <groupfilter function='member' level='[none:person:nk]' member='&quot;id_7701&quot;' />
+                          </groupfilter>
+                          <groupfilter function='crossjoin'>
+                            <groupfilter function='member' level='[none:begin time:qk]' member='#1900-01-01 18:37:28#' />
+                            <groupfilter function='member' level='[none:person:nk]' member='&quot;id_7712&quot;' />
+                          </groupfilter>
+                          <groupfilter function='crossjoin'>
+                            <groupfilter function='member' level='[none:begin time:qk]' member='#1900-01-01 18:37:38#' />
+                            <groupfilter function='member' level='[none:person:nk]' member='&quot;id_7716&quot;' />
+                          </groupfilter>
+                        </groupfilter>
+                      </groupfilter>
+                    </groupfilter>
+                  </groupfilter>
+                </groupfilter>
+                <order>
+                  <hierarchy name='[none:begin time:qk]' />
+                  <hierarchy name='[none:event:nk]' />
+                  <hierarchy name='[none:person:nk]' />
+                  <hierarchy name='[none:selected line:nk]' />
+                </order>
+              </groupfilter>
+            </groupfilter>
+          </filter>
           <filter class='categorical' column='[federated.04ihfrx0rvdbss15cjucn1l212ye].[none:event:nk]'>
             <groupfilter function='level-members' level='[none:event:nk]' />
           </filter>
@@ -28126,11 +28629,12 @@
           <natural-sort column='[federated.04ihfrx0rvdbss15cjucn1l212ye].[none:person:nk]' direction='ASC' />
           <filter class='quantitative' column='[federated.04ihfrx0rvdbss15cjucn1l212ye].[tmi:begin time:qk]' included-values='in-range'>
             <min>#1900-01-01 18:32:48.095#</min>
-            <max>#1900-01-01 18:40:48.095#</max>
+            <max>#1900-01-01 18:37:48.095#</max>
           </filter>
           <slices>
             <column>[federated.04ihfrx0rvdbss15cjucn1l212ye].[tmi:begin time:qk]</column>
             <column>[federated.04ihfrx0rvdbss15cjucn1l212ye].[none:event:nk]</column>
+            <column>[federated.04ihfrx0rvdbss15cjucn1l212ye].[Exclusions (Begin Time,Event,Person,Selected Line)]</column>
           </slices>
           <aggregation value='true' />
         </view>
@@ -28208,9 +28712,649 @@
       </table>
       <simple-id uuid='{A226147D-C2E9-4558-9422-B19316ACADF4}' />
     </worksheet>
+    <worksheet name='Zoom In'>
+      <table>
+        <view>
+          <datasources>
+            <datasource caption='events' name='federated.04ihfrx0rvdbss15cjucn1l212ye' />
+          </datasources>
+          <datasource-dependencies datasource='federated.04ihfrx0rvdbss15cjucn1l212ye'>
+            <column caption='Duration_Tableau' datatype='real' name='[Calculation_386465144428855296]' role='measure' type='quantitative'>
+              <calculation class='tableau' formula='DATEDIFF(&apos;second&apos;, [begin time], [end time])/86400' />
+            </column>
+            <column aggregation='Count' caption='Begin Time' datatype='datetime' datatype-customized='true' name='[begin time]' role='dimension' type='ordinal'>
+              <desc>
+                <formatted-text>
+                  <run>events.Value.begin time</run>
+                </formatted-text>
+              </desc>
+            </column>
+            <column aggregation='Count' caption='End Time' datatype='datetime' datatype-customized='true' name='[end time]' role='dimension' type='ordinal'>
+              <desc>
+                <formatted-text>
+                  <run>events.Value.end time</run>
+                </formatted-text>
+              </desc>
+            </column>
+            <column caption='Event' datatype='string' name='[event]' role='dimension' type='nominal'>
+              <desc>
+                <formatted-text>
+                  <run>events.Value.event</run>
+                </formatted-text>
+              </desc>
+            </column>
+            <column-instance column='[begin time]' derivation='None' name='[none:begin time:qk]' pivot='key' type='quantitative' />
+            <column-instance column='[event]' derivation='None' name='[none:event:nk]' pivot='key' type='nominal' />
+            <column-instance column='[person]' derivation='None' name='[none:person:nk]' pivot='key' type='nominal' />
+            <column-instance column='[selected line]' derivation='None' name='[none:selected line:nk]' pivot='key' type='nominal' />
+            <column caption='Person' datatype='string' name='[person]' role='dimension' type='nominal'>
+              <desc>
+                <formatted-text>
+                  <run>events.Value.person</run>
+                </formatted-text>
+              </desc>
+            </column>
+            <column caption='Selected Line' datatype='string' name='[selected line]' role='dimension' type='nominal'>
+              <desc>
+                <formatted-text>
+                  <run>events.Value.selected line</run>
+                </formatted-text>
+              </desc>
+            </column>
+            <column-instance column='[Calculation_386465144428855296]' derivation='Sum' name='[sum:Calculation_386465144428855296:qk]' pivot='key' type='quantitative' />
+            <column-instance column='[begin time]' derivation='Minute-Trunc' name='[tmi:begin time:qk]' pivot='key' type='quantitative' />
+          </datasource-dependencies>
+          <filter class='categorical' column='[federated.04ihfrx0rvdbss15cjucn1l212ye].[Exclusions (Begin Time,Event,Person,Selected Line)]'>
+            <groupfilter function='except' user:ui-domain='database' user:ui-enumeration='exclusive' user:ui-marker='enumerate'>
+              <groupfilter function='crossjoin'>
+                <groupfilter function='level-members' level='[none:begin time:qk]' />
+                <groupfilter function='level-members' level='[none:event:nk]' />
+                <groupfilter function='level-members' level='[none:person:nk]' />
+                <groupfilter function='level-members' level='[none:selected line:nk]' />
+              </groupfilter>
+              <groupfilter function='reorder-dimensionality'>
+                <groupfilter function='union'>
+                  <groupfilter function='crossjoin'>
+                    <groupfilter function='member' level='[none:event:nk]' member='&quot;SCAN TICKET&quot;' />
+                    <groupfilter function='union'>
+                      <groupfilter function='crossjoin'>
+                        <groupfilter function='member' level='[none:selected line:nk]' member='&quot;RFID_1&quot;' />
+                        <groupfilter function='union'>
+                          <groupfilter function='crossjoin'>
+                            <groupfilter function='member' level='[none:begin time:qk]' member='#1900-01-01 18:33:02#' />
+                            <groupfilter function='member' level='[none:person:nk]' member='&quot;id_7538&quot;' />
+                          </groupfilter>
+                          <groupfilter function='crossjoin'>
+                            <groupfilter function='member' level='[none:begin time:qk]' member='#1900-01-01 18:33:10#' />
+                            <groupfilter function='member' level='[none:person:nk]' member='&quot;id_7542&quot;' />
+                          </groupfilter>
+                          <groupfilter function='crossjoin'>
+                            <groupfilter function='member' level='[none:begin time:qk]' member='#1900-01-01 18:33:18#' />
+                            <groupfilter function='member' level='[none:person:nk]' member='&quot;id_7544&quot;' />
+                          </groupfilter>
+                          <groupfilter function='crossjoin'>
+                            <groupfilter function='member' level='[none:begin time:qk]' member='#1900-01-01 18:33:23#' />
+                            <groupfilter function='member' level='[none:person:nk]' member='&quot;id_7546&quot;' />
+                          </groupfilter>
+                          <groupfilter function='crossjoin'>
+                            <groupfilter function='member' level='[none:begin time:qk]' member='#1900-01-01 18:33:28#' />
+                            <groupfilter function='member' level='[none:person:nk]' member='&quot;id_7549&quot;' />
+                          </groupfilter>
+                          <groupfilter function='crossjoin'>
+                            <groupfilter function='member' level='[none:begin time:qk]' member='#1900-01-01 18:33:36#' />
+                            <groupfilter function='member' level='[none:person:nk]' member='&quot;id_7550&quot;' />
+                          </groupfilter>
+                          <groupfilter function='crossjoin'>
+                            <groupfilter function='member' level='[none:begin time:qk]' member='#1900-01-01 18:33:46#' />
+                            <groupfilter function='member' level='[none:person:nk]' member='&quot;id_7552&quot;' />
+                          </groupfilter>
+                          <groupfilter function='crossjoin'>
+                            <groupfilter function='member' level='[none:begin time:qk]' member='#1900-01-01 18:33:55#' />
+                            <groupfilter function='member' level='[none:person:nk]' member='&quot;id_7557&quot;' />
+                          </groupfilter>
+                          <groupfilter function='crossjoin'>
+                            <groupfilter function='member' level='[none:begin time:qk]' member='#1900-01-01 18:34:05#' />
+                            <groupfilter function='member' level='[none:person:nk]' member='&quot;id_7558&quot;' />
+                          </groupfilter>
+                          <groupfilter function='crossjoin'>
+                            <groupfilter function='member' level='[none:begin time:qk]' member='#1900-01-01 18:34:11#' />
+                            <groupfilter function='member' level='[none:person:nk]' member='&quot;id_7560&quot;' />
+                          </groupfilter>
+                          <groupfilter function='crossjoin'>
+                            <groupfilter function='member' level='[none:begin time:qk]' member='#1900-01-01 18:34:16#' />
+                            <groupfilter function='member' level='[none:person:nk]' member='&quot;id_7562&quot;' />
+                          </groupfilter>
+                          <groupfilter function='crossjoin'>
+                            <groupfilter function='member' level='[none:begin time:qk]' member='#1900-01-01 18:34:22#' />
+                            <groupfilter function='member' level='[none:person:nk]' member='&quot;id_7564&quot;' />
+                          </groupfilter>
+                          <groupfilter function='crossjoin'>
+                            <groupfilter function='member' level='[none:begin time:qk]' member='#1900-01-01 18:34:29#' />
+                            <groupfilter function='member' level='[none:person:nk]' member='&quot;id_7565&quot;' />
+                          </groupfilter>
+                          <groupfilter function='crossjoin'>
+                            <groupfilter function='member' level='[none:begin time:qk]' member='#1900-01-01 18:34:37#' />
+                            <groupfilter function='member' level='[none:person:nk]' member='&quot;id_7569&quot;' />
+                          </groupfilter>
+                        </groupfilter>
+                      </groupfilter>
+                      <groupfilter function='crossjoin'>
+                        <groupfilter function='member' level='[none:selected line:nk]' member='&quot;RFID_2&quot;' />
+                        <groupfilter function='union'>
+                          <groupfilter function='crossjoin'>
+                            <groupfilter function='member' level='[none:begin time:qk]' member='#1900-01-01 18:33:05#' />
+                            <groupfilter function='member' level='[none:person:nk]' member='&quot;id_7539&quot;' />
+                          </groupfilter>
+                          <groupfilter function='crossjoin'>
+                            <groupfilter function='member' level='[none:begin time:qk]' member='#1900-01-01 18:33:10#' />
+                            <groupfilter function='member' level='[none:person:nk]' member='&quot;id_7540&quot;' />
+                          </groupfilter>
+                          <groupfilter function='crossjoin'>
+                            <groupfilter function='member' level='[none:begin time:qk]' member='#1900-01-01 18:33:22#' />
+                            <groupfilter function='member' level='[none:person:nk]' member='&quot;id_7545&quot;' />
+                          </groupfilter>
+                          <groupfilter function='crossjoin'>
+                            <groupfilter function='member' level='[none:begin time:qk]' member='#1900-01-01 18:33:29#' />
+                            <groupfilter function='member' level='[none:person:nk]' member='&quot;id_7547&quot;' />
+                          </groupfilter>
+                          <groupfilter function='crossjoin'>
+                            <groupfilter function='member' level='[none:begin time:qk]' member='#1900-01-01 18:33:38#' />
+                            <groupfilter function='member' level='[none:person:nk]' member='&quot;id_7548&quot;' />
+                          </groupfilter>
+                          <groupfilter function='crossjoin'>
+                            <groupfilter function='member' level='[none:begin time:qk]' member='#1900-01-01 18:33:46#' />
+                            <groupfilter function='member' level='[none:person:nk]' member='&quot;id_7551&quot;' />
+                          </groupfilter>
+                          <groupfilter function='crossjoin'>
+                            <groupfilter function='member' level='[none:begin time:qk]' member='#1900-01-01 18:33:56#' />
+                            <groupfilter function='member' level='[none:person:nk]' member='&quot;id_7553&quot;' />
+                          </groupfilter>
+                          <groupfilter function='crossjoin'>
+                            <groupfilter function='member' level='[none:begin time:qk]' member='#1900-01-01 18:34:02#' />
+                            <groupfilter function='member' level='[none:person:nk]' member='&quot;id_7554&quot;' />
+                          </groupfilter>
+                          <groupfilter function='crossjoin'>
+                            <groupfilter function='member' level='[none:begin time:qk]' member='#1900-01-01 18:34:12#' />
+                            <groupfilter function='member' level='[none:person:nk]' member='&quot;id_7556&quot;' />
+                          </groupfilter>
+                          <groupfilter function='crossjoin'>
+                            <groupfilter function='member' level='[none:begin time:qk]' member='#1900-01-01 18:34:21#' />
+                            <groupfilter function='member' level='[none:person:nk]' member='&quot;id_7559&quot;' />
+                          </groupfilter>
+                          <groupfilter function='crossjoin'>
+                            <groupfilter function='member' level='[none:begin time:qk]' member='#1900-01-01 18:34:32#' />
+                            <groupfilter function='member' level='[none:person:nk]' member='&quot;id_7561&quot;' />
+                          </groupfilter>
+                          <groupfilter function='crossjoin'>
+                            <groupfilter function='member' level='[none:begin time:qk]' member='#1900-01-01 18:34:38#' />
+                            <groupfilter function='member' level='[none:person:nk]' member='&quot;id_7566&quot;' />
+                          </groupfilter>
+                        </groupfilter>
+                      </groupfilter>
+                      <groupfilter function='crossjoin'>
+                        <groupfilter function='member' level='[none:selected line:nk]' member='&quot;paper_1&quot;' />
+                        <groupfilter function='union'>
+                          <groupfilter function='crossjoin'>
+                            <groupfilter function='member' level='[none:begin time:qk]' member='#1900-01-01 18:33:10#' />
+                            <groupfilter function='member' level='[none:person:nk]' member='&quot;id_7555&quot;' />
+                          </groupfilter>
+                          <groupfilter function='crossjoin'>
+                            <groupfilter function='member' level='[none:begin time:qk]' member='#1900-01-01 18:33:25#' />
+                            <groupfilter function='member' level='[none:person:nk]' member='&quot;id_7567&quot;' />
+                          </groupfilter>
+                          <groupfilter function='crossjoin'>
+                            <groupfilter function='member' level='[none:begin time:qk]' member='#1900-01-01 18:33:36#' />
+                            <groupfilter function='member' level='[none:person:nk]' member='&quot;id_7568&quot;' />
+                          </groupfilter>
+                        </groupfilter>
+                      </groupfilter>
+                      <groupfilter function='crossjoin'>
+                        <groupfilter function='member' level='[none:selected line:nk]' member='&quot;paper_2&quot;' />
+                        <groupfilter function='union'>
+                          <groupfilter function='crossjoin'>
+                            <groupfilter function='member' level='[none:begin time:qk]' member='#1900-01-01 18:33:14#' />
+                            <groupfilter function='member' level='[none:person:nk]' member='&quot;id_7541&quot;' />
+                          </groupfilter>
+                          <groupfilter function='crossjoin'>
+                            <groupfilter function='member' level='[none:begin time:qk]' member='#1900-01-01 18:33:27#' />
+                            <groupfilter function='member' level='[none:person:nk]' member='&quot;id_7563&quot;' />
+                          </groupfilter>
+                        </groupfilter>
+                      </groupfilter>
+                    </groupfilter>
+                  </groupfilter>
+                  <groupfilter function='crossjoin'>
+                    <groupfilter function='member' level='[none:event:nk]' member='&quot;WAITING TO BE SCANNED&quot;' />
+                    <groupfilter function='union'>
+                      <groupfilter function='crossjoin'>
+                        <groupfilter function='member' level='[none:selected line:nk]' member='&quot;RFID_1&quot;' />
+                        <groupfilter function='union'>
+                          <groupfilter function='crossjoin'>
+                            <groupfilter function='member' level='[none:begin time:qk]' member='#1900-01-01 18:34:52#' />
+                            <groupfilter function='member' level='[none:person:nk]' member='&quot;id_7633&quot;' />
+                          </groupfilter>
+                          <groupfilter function='crossjoin'>
+                            <groupfilter function='member' level='[none:begin time:qk]' member='#1900-01-01 18:34:56#' />
+                            <groupfilter function='member' level='[none:person:nk]' member='&quot;id_7634&quot;' />
+                          </groupfilter>
+                          <groupfilter function='crossjoin'>
+                            <groupfilter function='member' level='[none:begin time:qk]' member='#1900-01-01 18:35:00#' />
+                            <groupfilter function='member' level='[none:person:nk]' member='&quot;id_7639&quot;' />
+                          </groupfilter>
+                          <groupfilter function='crossjoin'>
+                            <groupfilter function='member' level='[none:begin time:qk]' member='#1900-01-01 18:35:07#' />
+                            <groupfilter function='member' level='[none:person:nk]' member='&quot;id_7643&quot;' />
+                          </groupfilter>
+                          <groupfilter function='crossjoin'>
+                            <groupfilter function='member' level='[none:begin time:qk]' member='#1900-01-01 18:35:13#' />
+                            <groupfilter function='member' level='[none:person:nk]' member='&quot;id_7645&quot;' />
+                          </groupfilter>
+                          <groupfilter function='crossjoin'>
+                            <groupfilter function='member' level='[none:begin time:qk]' member='#1900-01-01 18:35:18#' />
+                            <groupfilter function='member' level='[none:person:nk]' member='&quot;id_7647&quot;' />
+                          </groupfilter>
+                          <groupfilter function='crossjoin'>
+                            <groupfilter function='member' level='[none:begin time:qk]' member='#1900-01-01 18:35:24#' />
+                            <groupfilter function='member' level='[none:person:nk]' member='&quot;id_7650&quot;' />
+                          </groupfilter>
+                          <groupfilter function='crossjoin'>
+                            <groupfilter function='member' level='[none:begin time:qk]' member='#1900-01-01 18:35:27#' />
+                            <groupfilter function='member' level='[none:person:nk]' member='&quot;id_7651&quot;' />
+                          </groupfilter>
+                          <groupfilter function='crossjoin'>
+                            <groupfilter function='member' level='[none:begin time:qk]' member='#1900-01-01 18:35:36#' />
+                            <groupfilter function='member' level='[none:person:nk]' member='&quot;id_7654&quot;' />
+                          </groupfilter>
+                          <groupfilter function='crossjoin'>
+                            <groupfilter function='member' level='[none:begin time:qk]' member='#1900-01-01 18:35:42#' />
+                            <groupfilter function='member' level='[none:person:nk]' member='&quot;id_7658&quot;' />
+                          </groupfilter>
+                          <groupfilter function='crossjoin'>
+                            <groupfilter function='member' level='[none:begin time:qk]' member='#1900-01-01 18:35:51#' />
+                            <groupfilter function='member' level='[none:person:nk]' member='&quot;id_7662&quot;' />
+                          </groupfilter>
+                          <groupfilter function='crossjoin'>
+                            <groupfilter function='member' level='[none:begin time:qk]' member='#1900-01-01 18:36:00#' />
+                            <groupfilter function='member' level='[none:person:nk]' member='&quot;id_7667&quot;' />
+                          </groupfilter>
+                          <groupfilter function='crossjoin'>
+                            <groupfilter function='member' level='[none:begin time:qk]' member='#1900-01-01 18:36:04#' />
+                            <groupfilter function='member' level='[none:person:nk]' member='&quot;id_7668&quot;' />
+                          </groupfilter>
+                          <groupfilter function='crossjoin'>
+                            <groupfilter function='member' level='[none:begin time:qk]' member='#1900-01-01 18:36:14#' />
+                            <groupfilter function='member' level='[none:person:nk]' member='&quot;id_7672&quot;' />
+                          </groupfilter>
+                          <groupfilter function='crossjoin'>
+                            <groupfilter function='member' level='[none:begin time:qk]' member='#1900-01-01 18:36:17#' />
+                            <groupfilter function='member' level='[none:person:nk]' member='&quot;id_7673&quot;' />
+                          </groupfilter>
+                          <groupfilter function='crossjoin'>
+                            <groupfilter function='member' level='[none:begin time:qk]' member='#1900-01-01 18:36:20#' />
+                            <groupfilter function='member' level='[none:person:nk]' member='&quot;id_7676&quot;' />
+                          </groupfilter>
+                          <groupfilter function='crossjoin'>
+                            <groupfilter function='member' level='[none:begin time:qk]' member='#1900-01-01 18:36:30#' />
+                            <groupfilter function='member' level='[none:person:nk]' member='&quot;id_7679&quot;' />
+                          </groupfilter>
+                          <groupfilter function='crossjoin'>
+                            <groupfilter function='member' level='[none:begin time:qk]' member='#1900-01-01 18:36:34#' />
+                            <groupfilter function='member' level='[none:person:nk]' member='&quot;id_7683&quot;' />
+                          </groupfilter>
+                          <groupfilter function='crossjoin'>
+                            <groupfilter function='member' level='[none:begin time:qk]' member='#1900-01-01 18:36:41#' />
+                            <groupfilter function='member' level='[none:person:nk]' member='&quot;id_7684&quot;' />
+                          </groupfilter>
+                          <groupfilter function='crossjoin'>
+                            <groupfilter function='member' level='[none:begin time:qk]' member='#1900-01-01 18:36:46#' />
+                            <groupfilter function='member' level='[none:person:nk]' member='&quot;id_7686&quot;' />
+                          </groupfilter>
+                          <groupfilter function='crossjoin'>
+                            <groupfilter function='member' level='[none:begin time:qk]' member='#1900-01-01 18:36:53#' />
+                            <groupfilter function='member' level='[none:person:nk]' member='&quot;id_7689&quot;' />
+                          </groupfilter>
+                          <groupfilter function='crossjoin'>
+                            <groupfilter function='member' level='[none:begin time:qk]' member='#1900-01-01 18:37:02#' />
+                            <groupfilter function='union'>
+                              <groupfilter function='member' level='[none:person:nk]' member='&quot;id_7694&quot;' />
+                              <groupfilter function='member' level='[none:person:nk]' member='&quot;id_7695&quot;' />
+                            </groupfilter>
+                          </groupfilter>
+                          <groupfilter function='crossjoin'>
+                            <groupfilter function='member' level='[none:begin time:qk]' member='#1900-01-01 18:37:05#' />
+                            <groupfilter function='member' level='[none:person:nk]' member='&quot;id_7698&quot;' />
+                          </groupfilter>
+                          <groupfilter function='crossjoin'>
+                            <groupfilter function='member' level='[none:begin time:qk]' member='#1900-01-01 18:37:10#' />
+                            <groupfilter function='member' level='[none:person:nk]' member='&quot;id_7702&quot;' />
+                          </groupfilter>
+                          <groupfilter function='crossjoin'>
+                            <groupfilter function='member' level='[none:begin time:qk]' member='#1900-01-01 18:37:13#' />
+                            <groupfilter function='member' level='[none:person:nk]' member='&quot;id_7704&quot;' />
+                          </groupfilter>
+                          <groupfilter function='crossjoin'>
+                            <groupfilter function='member' level='[none:begin time:qk]' member='#1900-01-01 18:37:14#' />
+                            <groupfilter function='member' level='[none:person:nk]' member='&quot;id_7705&quot;' />
+                          </groupfilter>
+                          <groupfilter function='crossjoin'>
+                            <groupfilter function='member' level='[none:begin time:qk]' member='#1900-01-01 18:37:19#' />
+                            <groupfilter function='member' level='[none:person:nk]' member='&quot;id_7707&quot;' />
+                          </groupfilter>
+                          <groupfilter function='crossjoin'>
+                            <groupfilter function='member' level='[none:begin time:qk]' member='#1900-01-01 18:37:20#' />
+                            <groupfilter function='member' level='[none:person:nk]' member='&quot;id_7709&quot;' />
+                          </groupfilter>
+                          <groupfilter function='crossjoin'>
+                            <groupfilter function='member' level='[none:begin time:qk]' member='#1900-01-01 18:37:22#' />
+                            <groupfilter function='member' level='[none:person:nk]' member='&quot;id_7710&quot;' />
+                          </groupfilter>
+                          <groupfilter function='crossjoin'>
+                            <groupfilter function='member' level='[none:begin time:qk]' member='#1900-01-01 18:37:30#' />
+                            <groupfilter function='member' level='[none:person:nk]' member='&quot;id_7713&quot;' />
+                          </groupfilter>
+                          <groupfilter function='crossjoin'>
+                            <groupfilter function='member' level='[none:begin time:qk]' member='#1900-01-01 18:37:45#' />
+                            <groupfilter function='member' level='[none:person:nk]' member='&quot;id_7720&quot;' />
+                          </groupfilter>
+                          <groupfilter function='crossjoin'>
+                            <groupfilter function='member' level='[none:begin time:qk]' member='#1900-01-01 18:37:49#' />
+                            <groupfilter function='member' level='[none:person:nk]' member='&quot;id_7722&quot;' />
+                          </groupfilter>
+                          <groupfilter function='crossjoin'>
+                            <groupfilter function='member' level='[none:begin time:qk]' member='#1900-01-01 18:37:51#' />
+                            <groupfilter function='member' level='[none:person:nk]' member='&quot;id_7723&quot;' />
+                          </groupfilter>
+                        </groupfilter>
+                      </groupfilter>
+                      <groupfilter function='crossjoin'>
+                        <groupfilter function='member' level='[none:selected line:nk]' member='&quot;RFID_2&quot;' />
+                        <groupfilter function='union'>
+                          <groupfilter function='crossjoin'>
+                            <groupfilter function='member' level='[none:begin time:qk]' member='#1900-01-01 18:34:21#' />
+                            <groupfilter function='member' level='[none:person:nk]' member='&quot;id_7617&quot;' />
+                          </groupfilter>
+                          <groupfilter function='crossjoin'>
+                            <groupfilter function='member' level='[none:begin time:qk]' member='#1900-01-01 18:34:36#' />
+                            <groupfilter function='member' level='[none:person:nk]' member='&quot;id_7622&quot;' />
+                          </groupfilter>
+                          <groupfilter function='crossjoin'>
+                            <groupfilter function='member' level='[none:begin time:qk]' member='#1900-01-01 18:34:47#' />
+                            <groupfilter function='member' level='[none:person:nk]' member='&quot;id_7628&quot;' />
+                          </groupfilter>
+                          <groupfilter function='crossjoin'>
+                            <groupfilter function='member' level='[none:begin time:qk]' member='#1900-01-01 18:34:51#' />
+                            <groupfilter function='member' level='[none:person:nk]' member='&quot;id_7630&quot;' />
+                          </groupfilter>
+                          <groupfilter function='crossjoin'>
+                            <groupfilter function='member' level='[none:begin time:qk]' member='#1900-01-01 18:34:52#' />
+                            <groupfilter function='member' level='[none:person:nk]' member='&quot;id_7631&quot;' />
+                          </groupfilter>
+                          <groupfilter function='crossjoin'>
+                            <groupfilter function='member' level='[none:begin time:qk]' member='#1900-01-01 18:34:56#' />
+                            <groupfilter function='member' level='[none:person:nk]' member='&quot;id_7636&quot;' />
+                          </groupfilter>
+                          <groupfilter function='crossjoin'>
+                            <groupfilter function='member' level='[none:begin time:qk]' member='#1900-01-01 18:34:59#' />
+                            <groupfilter function='member' level='[none:person:nk]' member='&quot;id_7637&quot;' />
+                          </groupfilter>
+                          <groupfilter function='crossjoin'>
+                            <groupfilter function='member' level='[none:begin time:qk]' member='#1900-01-01 18:35:04#' />
+                            <groupfilter function='member' level='[none:person:nk]' member='&quot;id_7641&quot;' />
+                          </groupfilter>
+                          <groupfilter function='crossjoin'>
+                            <groupfilter function='member' level='[none:begin time:qk]' member='#1900-01-01 18:35:10#' />
+                            <groupfilter function='member' level='[none:person:nk]' member='&quot;id_7644&quot;' />
+                          </groupfilter>
+                          <groupfilter function='crossjoin'>
+                            <groupfilter function='member' level='[none:begin time:qk]' member='#1900-01-01 18:35:13#' />
+                            <groupfilter function='member' level='[none:person:nk]' member='&quot;id_7646&quot;' />
+                          </groupfilter>
+                          <groupfilter function='crossjoin'>
+                            <groupfilter function='member' level='[none:begin time:qk]' member='#1900-01-01 18:35:22#' />
+                            <groupfilter function='member' level='[none:person:nk]' member='&quot;id_7649&quot;' />
+                          </groupfilter>
+                          <groupfilter function='crossjoin'>
+                            <groupfilter function='member' level='[none:begin time:qk]' member='#1900-01-01 18:35:29#' />
+                            <groupfilter function='member' level='[none:person:nk]' member='&quot;id_7652&quot;' />
+                          </groupfilter>
+                          <groupfilter function='crossjoin'>
+                            <groupfilter function='member' level='[none:begin time:qk]' member='#1900-01-01 18:35:39#' />
+                            <groupfilter function='member' level='[none:person:nk]' member='&quot;id_7657&quot;' />
+                          </groupfilter>
+                          <groupfilter function='crossjoin'>
+                            <groupfilter function='member' level='[none:begin time:qk]' member='#1900-01-01 18:35:49#' />
+                            <groupfilter function='member' level='[none:person:nk]' member='&quot;id_7661&quot;' />
+                          </groupfilter>
+                          <groupfilter function='crossjoin'>
+                            <groupfilter function='member' level='[none:begin time:qk]' member='#1900-01-01 18:36:00#' />
+                            <groupfilter function='member' level='[none:person:nk]' member='&quot;id_7666&quot;' />
+                          </groupfilter>
+                          <groupfilter function='crossjoin'>
+                            <groupfilter function='member' level='[none:begin time:qk]' member='#1900-01-01 18:36:07#' />
+                            <groupfilter function='member' level='[none:person:nk]' member='&quot;id_7669&quot;' />
+                          </groupfilter>
+                          <groupfilter function='crossjoin'>
+                            <groupfilter function='member' level='[none:begin time:qk]' member='#1900-01-01 18:36:19#' />
+                            <groupfilter function='member' level='[none:person:nk]' member='&quot;id_7675&quot;' />
+                          </groupfilter>
+                          <groupfilter function='crossjoin'>
+                            <groupfilter function='member' level='[none:begin time:qk]' member='#1900-01-01 18:36:28#' />
+                            <groupfilter function='member' level='[none:person:nk]' member='&quot;id_7678&quot;' />
+                          </groupfilter>
+                          <groupfilter function='crossjoin'>
+                            <groupfilter function='member' level='[none:begin time:qk]' member='#1900-01-01 18:36:32#' />
+                            <groupfilter function='member' level='[none:person:nk]' member='&quot;id_7682&quot;' />
+                          </groupfilter>
+                          <groupfilter function='crossjoin'>
+                            <groupfilter function='member' level='[none:begin time:qk]' member='#1900-01-01 18:36:43#' />
+                            <groupfilter function='member' level='[none:person:nk]' member='&quot;id_7685&quot;' />
+                          </groupfilter>
+                          <groupfilter function='crossjoin'>
+                            <groupfilter function='member' level='[none:begin time:qk]' member='#1900-01-01 18:36:50#' />
+                            <groupfilter function='member' level='[none:person:nk]' member='&quot;id_7688&quot;' />
+                          </groupfilter>
+                          <groupfilter function='crossjoin'>
+                            <groupfilter function='member' level='[none:begin time:qk]' member='#1900-01-01 18:36:54#' />
+                            <groupfilter function='member' level='[none:person:nk]' member='&quot;id_7690&quot;' />
+                          </groupfilter>
+                          <groupfilter function='crossjoin'>
+                            <groupfilter function='member' level='[none:begin time:qk]' member='#1900-01-01 18:36:57#' />
+                            <groupfilter function='member' level='[none:person:nk]' member='&quot;id_7691&quot;' />
+                          </groupfilter>
+                          <groupfilter function='crossjoin'>
+                            <groupfilter function='member' level='[none:begin time:qk]' member='#1900-01-01 18:37:02#' />
+                            <groupfilter function='member' level='[none:person:nk]' member='&quot;id_7696&quot;' />
+                          </groupfilter>
+                          <groupfilter function='crossjoin'>
+                            <groupfilter function='member' level='[none:begin time:qk]' member='#1900-01-01 18:37:06#' />
+                            <groupfilter function='member' level='[none:person:nk]' member='&quot;id_7699&quot;' />
+                          </groupfilter>
+                          <groupfilter function='crossjoin'>
+                            <groupfilter function='member' level='[none:begin time:qk]' member='#1900-01-01 18:37:08#' />
+                            <groupfilter function='member' level='[none:person:nk]' member='&quot;id_7700&quot;' />
+                          </groupfilter>
+                          <groupfilter function='crossjoin'>
+                            <groupfilter function='member' level='[none:begin time:qk]' member='#1900-01-01 18:37:11#' />
+                            <groupfilter function='member' level='[none:person:nk]' member='&quot;id_7703&quot;' />
+                          </groupfilter>
+                          <groupfilter function='crossjoin'>
+                            <groupfilter function='member' level='[none:begin time:qk]' member='#1900-01-01 18:37:14#' />
+                            <groupfilter function='member' level='[none:person:nk]' member='&quot;id_7706&quot;' />
+                          </groupfilter>
+                          <groupfilter function='crossjoin'>
+                            <groupfilter function='member' level='[none:begin time:qk]' member='#1900-01-01 18:37:20#' />
+                            <groupfilter function='member' level='[none:person:nk]' member='&quot;id_7708&quot;' />
+                          </groupfilter>
+                          <groupfilter function='crossjoin'>
+                            <groupfilter function='member' level='[none:begin time:qk]' member='#1900-01-01 18:37:27#' />
+                            <groupfilter function='member' level='[none:person:nk]' member='&quot;id_7711&quot;' />
+                          </groupfilter>
+                          <groupfilter function='crossjoin'>
+                            <groupfilter function='member' level='[none:begin time:qk]' member='#1900-01-01 18:37:33#' />
+                            <groupfilter function='member' level='[none:person:nk]' member='&quot;id_7714&quot;' />
+                          </groupfilter>
+                          <groupfilter function='crossjoin'>
+                            <groupfilter function='member' level='[none:begin time:qk]' member='#1900-01-01 18:37:42#' />
+                            <groupfilter function='union'>
+                              <groupfilter function='member' level='[none:person:nk]' member='&quot;id_7718&quot;' />
+                              <groupfilter function='member' level='[none:person:nk]' member='&quot;id_7719&quot;' />
+                            </groupfilter>
+                          </groupfilter>
+                          <groupfilter function='crossjoin'>
+                            <groupfilter function='member' level='[none:begin time:qk]' member='#1900-01-01 18:37:48#' />
+                            <groupfilter function='member' level='[none:person:nk]' member='&quot;id_7721&quot;' />
+                          </groupfilter>
+                          <groupfilter function='crossjoin'>
+                            <groupfilter function='member' level='[none:begin time:qk]' member='#1900-01-01 18:37:55#' />
+                            <groupfilter function='member' level='[none:person:nk]' member='&quot;id_7724&quot;' />
+                          </groupfilter>
+                        </groupfilter>
+                      </groupfilter>
+                      <groupfilter function='crossjoin'>
+                        <groupfilter function='member' level='[none:selected line:nk]' member='&quot;paper_1&quot;' />
+                        <groupfilter function='union'>
+                          <groupfilter function='crossjoin'>
+                            <groupfilter function='member' level='[none:begin time:qk]' member='#1900-01-01 18:37:04#' />
+                            <groupfilter function='member' level='[none:person:nk]' member='&quot;id_7697&quot;' />
+                          </groupfilter>
+                          <groupfilter function='crossjoin'>
+                            <groupfilter function='member' level='[none:begin time:qk]' member='#1900-01-01 18:37:34#' />
+                            <groupfilter function='member' level='[none:person:nk]' member='&quot;id_7715&quot;' />
+                          </groupfilter>
+                          <groupfilter function='crossjoin'>
+                            <groupfilter function='member' level='[none:begin time:qk]' member='#1900-01-01 18:37:42#' />
+                            <groupfilter function='member' level='[none:person:nk]' member='&quot;id_7717&quot;' />
+                          </groupfilter>
+                        </groupfilter>
+                      </groupfilter>
+                      <groupfilter function='crossjoin'>
+                        <groupfilter function='member' level='[none:selected line:nk]' member='&quot;paper_2&quot;' />
+                        <groupfilter function='union'>
+                          <groupfilter function='crossjoin'>
+                            <groupfilter function='member' level='[none:begin time:qk]' member='#1900-01-01 18:37:10#' />
+                            <groupfilter function='member' level='[none:person:nk]' member='&quot;id_7701&quot;' />
+                          </groupfilter>
+                          <groupfilter function='crossjoin'>
+                            <groupfilter function='member' level='[none:begin time:qk]' member='#1900-01-01 18:37:28#' />
+                            <groupfilter function='member' level='[none:person:nk]' member='&quot;id_7712&quot;' />
+                          </groupfilter>
+                          <groupfilter function='crossjoin'>
+                            <groupfilter function='member' level='[none:begin time:qk]' member='#1900-01-01 18:37:38#' />
+                            <groupfilter function='member' level='[none:person:nk]' member='&quot;id_7716&quot;' />
+                          </groupfilter>
+                        </groupfilter>
+                      </groupfilter>
+                    </groupfilter>
+                  </groupfilter>
+                </groupfilter>
+                <order>
+                  <hierarchy name='[none:begin time:qk]' />
+                  <hierarchy name='[none:event:nk]' />
+                  <hierarchy name='[none:person:nk]' />
+                  <hierarchy name='[none:selected line:nk]' />
+                </order>
+              </groupfilter>
+            </groupfilter>
+          </filter>
+          <filter class='categorical' column='[federated.04ihfrx0rvdbss15cjucn1l212ye].[none:event:nk]'>
+            <groupfilter function='level-members' level='[none:event:nk]' />
+          </filter>
+          <manual-sort column='[federated.04ihfrx0rvdbss15cjucn1l212ye].[none:event:nk]' direction='ASC'>
+            <dictionary>
+              <bucket>&quot;WAITING TO BE SCANNED&quot;</bucket>
+              <bucket>&quot;SCAN TICKET&quot;</bucket>
+              <bucket>&quot;ERROR OCCURENCE AND CORRECTION&quot;</bucket>
+            </dictionary>
+          </manual-sort>
+          <filter class='categorical' column='[federated.04ihfrx0rvdbss15cjucn1l212ye].[none:person:nk]'>
+            <groupfilter function='level-members' level='[none:person:nk]' user:ui-manual-selection='true' user:ui-manual-selection-all-when-empty='true' user:ui-manual-selection-is-empty='true' user:ui-marker='enumerate' />
+          </filter>
+          <manual-sort column='[federated.04ihfrx0rvdbss15cjucn1l212ye].[none:person:nk]' direction='ASC'>
+            <dictionary>
+              <bucket>&quot;id_6271&quot;</bucket>
+              <bucket>&quot;id_6274&quot;</bucket>
+              <bucket>&quot;id_6276&quot;</bucket>
+              <bucket>&quot;id_6277&quot;</bucket>
+              <bucket>&quot;id_6279&quot;</bucket>
+              <bucket>&quot;id_6281&quot;</bucket>
+              <bucket>&quot;id_6285&quot;</bucket>
+              <bucket>&quot;id_6287&quot;</bucket>
+              <bucket>&quot;id_6288&quot;</bucket>
+              <bucket>&quot;id_6289&quot;</bucket>
+              <bucket>&quot;id_6290&quot;</bucket>
+              <bucket>&quot;id_6291&quot;</bucket>
+              <bucket>&quot;id_6292&quot;</bucket>
+              <bucket>&quot;id_6293&quot;</bucket>
+              <bucket>&quot;id_6294&quot;</bucket>
+              <bucket>&quot;id_6295&quot;</bucket>
+              <bucket>&quot;id_6296&quot;</bucket>
+              <bucket>&quot;id_6297&quot;</bucket>
+              <bucket>&quot;id_6298&quot;</bucket>
+              <bucket>&quot;id_6300&quot;</bucket>
+              <bucket>&quot;id_6303&quot;</bucket>
+              <bucket>&quot;id_6305&quot;</bucket>
+              <bucket>&quot;id_6306&quot;</bucket>
+              <bucket>&quot;id_6309&quot;</bucket>
+              <bucket>&quot;id_6312&quot;</bucket>
+              <bucket>&quot;id_6313&quot;</bucket>
+              <bucket>&quot;id_6316&quot;</bucket>
+              <bucket>&quot;id_6321&quot;</bucket>
+              <bucket>&quot;id_6323&quot;</bucket>
+              <bucket>&quot;id_6324&quot;</bucket>
+              <bucket>&quot;id_6639&quot;</bucket>
+              <bucket>&quot;id_6640&quot;</bucket>
+              <bucket>&quot;id_6641&quot;</bucket>
+              <bucket>&quot;id_6642&quot;</bucket>
+              <bucket>&quot;id_6643&quot;</bucket>
+              <bucket>&quot;id_6644&quot;</bucket>
+              <bucket>&quot;id_6645&quot;</bucket>
+              <bucket>&quot;id_6646&quot;</bucket>
+              <bucket>&quot;id_6647&quot;</bucket>
+              <bucket>&quot;id_6648&quot;</bucket>
+              <bucket>&quot;id_6649&quot;</bucket>
+              <bucket>&quot;id_6650&quot;</bucket>
+              <bucket>&quot;id_6651&quot;</bucket>
+              <bucket>&quot;id_6652&quot;</bucket>
+              <bucket>&quot;id_6653&quot;</bucket>
+            </dictionary>
+          </manual-sort>
+          <filter class='categorical' column='[federated.04ihfrx0rvdbss15cjucn1l212ye].[none:selected line:nk]'>
+            <groupfilter function='member' level='[none:selected line:nk]' member='&quot;paper_2&quot;' user:ui-domain='database' user:ui-enumeration='inclusive' user:ui-marker='enumerate' />
+          </filter>
+          <filter class='quantitative' column='[federated.04ihfrx0rvdbss15cjucn1l212ye].[tmi:begin time:qk]' included-values='in-range'>
+            <min>#1900-01-01 09:47:07.619#</min>
+            <max>#1900-01-01 09:49:45.714#</max>
+          </filter>
+          <slices>
+            <column>[federated.04ihfrx0rvdbss15cjucn1l212ye].[tmi:begin time:qk]</column>
+            <column>[federated.04ihfrx0rvdbss15cjucn1l212ye].[none:event:nk]</column>
+            <column>[federated.04ihfrx0rvdbss15cjucn1l212ye].[Exclusions (Begin Time,Event,Person,Selected Line)]</column>
+            <column>[federated.04ihfrx0rvdbss15cjucn1l212ye].[none:person:nk]</column>
+            <column>[federated.04ihfrx0rvdbss15cjucn1l212ye].[none:selected line:nk]</column>
+          </slices>
+          <aggregation value='true' />
+        </view>
+        <style />
+        <panes>
+          <pane selection-relaxation-option='selection-relaxation-allow'>
+            <view>
+              <breakdown value='auto' />
+            </view>
+            <mark class='Automatic' />
+            <encodings>
+              <color column='[federated.04ihfrx0rvdbss15cjucn1l212ye].[none:person:nk]' />
+              <size column='[federated.04ihfrx0rvdbss15cjucn1l212ye].[sum:Calculation_386465144428855296:qk]' />
+            </encodings>
+          </pane>
+        </panes>
+        <rows>([federated.04ihfrx0rvdbss15cjucn1l212ye].[none:selected line:nk] / ([federated.04ihfrx0rvdbss15cjucn1l212ye].[none:event:nk] / [federated.04ihfrx0rvdbss15cjucn1l212ye].[none:person:nk]))</rows>
+        <cols>[federated.04ihfrx0rvdbss15cjucn1l212ye].[none:begin time:qk]</cols>
+      </table>
+      <simple-id uuid='{E9F18E2E-40F6-46E1-8A2D-62847AA903AC}' />
+    </worksheet>
   </worksheets>
   <windows source-height='30'>
-    <window class='worksheet' maximized='true' name='Sheet 1'>
+    <window class='worksheet' maximized='true' name='All lines'>
       <cards>
         <edge name='left'>
           <strip size='160'>
@@ -28251,6 +29395,49 @@
       </viewpoint>
       <simple-id uuid='{39E2E502-0961-4D6F-AA06-94B3B69CB226}' />
     </window>
+    <window class='worksheet' name='Zoom In'>
+      <cards>
+        <edge name='left'>
+          <strip size='160'>
+            <card type='pages' />
+            <card type='filters' />
+            <card type='marks' />
+          </strip>
+        </edge>
+        <edge name='top'>
+          <strip size='2147483647'>
+            <card type='columns' />
+          </strip>
+          <strip size='2147483647'>
+            <card type='rows' />
+          </strip>
+          <strip size='31'>
+            <card type='title' />
+          </strip>
+        </edge>
+        <edge name='right'>
+          <strip size='160'>
+            <card param='[federated.04ihfrx0rvdbss15cjucn1l212ye].[none:selected line:nk]' type='filter' />
+            <card mode='typeinlist' param='[federated.04ihfrx0rvdbss15cjucn1l212ye].[none:person:nk]' type='filter' />
+            <card param='[federated.04ihfrx0rvdbss15cjucn1l212ye].[none:event:nk]' type='filter' />
+            <card param='[federated.04ihfrx0rvdbss15cjucn1l212ye].[tmi:begin time:qk]' show-domain='false' show-null-ctrls='false' type='filter' />
+            <card pane-specification-id='0' param='[federated.04ihfrx0rvdbss15cjucn1l212ye].[none:person:nk]' type='color' />
+          </strip>
+        </edge>
+      </cards>
+      <viewpoint>
+        <zoom type='entire-view' />
+        <highlight>
+          <color-one-way>
+            <field>[federated.04ihfrx0rvdbss15cjucn1l212ye].[none:begin time:nk]</field>
+            <field>[federated.04ihfrx0rvdbss15cjucn1l212ye].[none:event:nk]</field>
+            <field>[federated.04ihfrx0rvdbss15cjucn1l212ye].[none:person:nk]</field>
+            <field>[federated.04ihfrx0rvdbss15cjucn1l212ye].[none:selected line:nk]</field>
+          </color-one-way>
+        </highlight>
+      </viewpoint>
+      <simple-id uuid='{4473E913-8111-4D4D-909F-0B36BE984381}' />
+    </window>
     <window class='worksheet' name='Sheet 2'>
       <cards>
         <edge name='left'>
@@ -28283,224 +29470,131 @@
     </window>
   </windows>
   <thumbnails>
-    <thumbnail height='192' name='Sheet 1' width='192'>
+    <thumbnail height='192' name='All lines' width='192'>
       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
-      AAAgAElEQVR4nO29WZAtyXmY92Xtdfb99L7cdTZgsBM0CVABU6Roy5RJybJoh+0nPzD85idH
-      OCyH7QeHbTn84hBDlmw5ZIctB2mJEIIgBVICRYIgsREzGGLm3rlrr6f7dPfZl9rTD3Vunz6Y
-      GcwiNcbgyS/iRt+syvozs079Vbn8f/5CSilRKJYU7cOuwIeBlBKl9wpYUgWIogjP8z7saij+
-      f8BSKoBC8QylAIqlRimAYqkxgKUbED5r77K1W/FWjGf/GY1GH2Y9fqREUUSSJERR9GFXRfEh
-      I5ZxHSAMQ6IownXdD7sqig8Z492zKN6OV4/+lN987dffNd/nwzaujLDJ8XH9L10eD0PJwWF8
-      mf5a8xFP8hcANPKfJGdvAPB87FFPFr9Upxe/QZJML9PnwzpHnc2FPGvGBI303fa1ldtEmn55
-      7m9uvIR7Jd3y90hkAsD/+n0IZ9XSC/uY5QeX+eojjb/6mnWZ9oo7xFYhvR+6xTc1+/KcLaes
-      ho8v0yvNJmurK5dpN86SjbJpXkPQKKZy+5OIwXR+X5hMkPsHl0lnvcbaL32Ok0Gf333zDQB+
-      7u7z7L/y3YX2P/fyx8kXivz2G9+n5Lo8PG8D8Be1EjVhAvCVg65SgA/KwOtzv/3Gu+Z7wdsn
-      R4RLAYyPXR5PAsnkyfzBPogfcr98AsAkXKWUSR+OlXBMLgkXZHZPXiFJJpfp0846e6eLeTRz
-      iC5SBXhDZgn0+U8d5XaQunmZnk7OSEgV4N4e+LEAwCjvY4fzNo56Gv59Z35dVSdyKgC0dIfX
-      jczlOTcZEvhzBSAKydjmlWSACNMypakhSeWGw5DJaN4WORzCk9ZlWmhp3bwo4rDfBcCPInqd
-      i4X2R2Eqoz0ckshknlczkCJV1NOTnpoFUiw3SgEUS41SAMVSszAGkFKSJAmaELPhkwShIZME
-      TdOQUqJpGsF0zEG7w83tzbcV+ox+r4dGSKxl0IWk1+9TLxboT0ecnnbZ3NpkNOhSzhVIDGi1
-      ztjdvcH+w9cxCg3w+tj5KvWixf2HhzTrZU46Q27dvMH58R5Gpkgw7JKrrjAedGlWclx4Oi4B
-      g2lIIevS755h50oMOueU6qs0qqXru5uKHzsWFKBzfMjxeZtIs+j0pqyXHSQRDx632NzZZaXZ
-      YLVZw3KzZOzBuwo34wkPz33c8JBCc4P2WRdXaORXakz9BG8yIgnGPHzQwV2pUMpZBDFUC3mS
-      YoZANwmmQ+KMy2QaMOpf4EUWIAmCAHQPI1uimNFpPT3H1CUn/ZCymdAfTxiP88hghJ3Nky83
-      mI76oBRAcYXFLpAAzS2y3qiyu7VGkiRUmls8d+cma2urVHIW9+/f5+joiIvzC6ZB/A5iU5xS
-      HVskJGYGEfkUsjpjL0ITAtexsW2bfLlBxtEoZiwuekOkBNNxcSyXQbeF1Cw03cSyDAzLwZzV
-      2DRMYmDcO+Po8BjhZPC8gM2VCn6isbG1RRR6WJYNQqNz1kIznR9aX8XysfAFqK5tUp39vwFA
-      OhfdrNcu89y9m877rq+vv6twTTe5e+fmZbqxOj/nXJFZqaSlrtRm88RuMy3r+Rcv87z80fKV
-      GsHm7jO5b61HrZzmrc7+Aqw0Gu9aX8XyoQbBiqVGKYBiqVEKoFhqlAIolhplDfoBGXh9Tocn
-      75qvkvhoSHR0CqJ+eTyR4E3nt75jT5gaqf2KZRQwtHTGKisT7B/4ifywhZwZrwGEkYUXLs5w
-      2SLh2WpO186SCHF57raTR2Oe9q/YFR2M0roBCGOKZs7PWRGsDOfvzMR0kSKdRxkIjZ6Yn9Nk
-      jCPn19p2Ouv3DF3q6DI1yNOEwDLSa6MkIYqvtDdOYDo3/NMcC2elgh+FnI9TE/5aNsd0sDgt
-      n8sXMEyTs9EQQ9OZhH6aFxNz9t4/90KlAIrlRnWBFEuNUgDFUqP8AT4AyVkfOZj3bxP9jNh8
-      E4BxrPPF4+blOcd8iiDEIuHFqHd53MLhhvbJy3Svn+B5aW/09dIJp27apy1mbuGaVa5yN/Ix
-      mPdc/eCI8fTNhTz75zskSdrHruj+lR4/vF5eJb7SX/+V2jbWLN0J28iZ7CcDuNeZXyeMKWZ5
-      Xs4nDw3q4/S62CoSOfOFx57Q+IY+7/NnkwG5eN7+crlEZbZQqUvj0jkmY+tkrHndwljSn8z9
-      JqTvw9n5Qlv3tvJMMouPcj2MsGeDmVcnEwZxarWwVixgm2neXeEoBfggJBdD5En3Mh2ZbxBm
-      fheAnm/xG6/OV7AL9h+iaR65JCQTzD2bMhS5Ycxv//Awot9Pf7Cvb32P12fOMZvlf51S5tZC
-      +WW/j3NFAQaj73DR+8pCnj9+86eJ4tQBZfeKcwzAF7c/RnjFQeaXb7kYs3Rncg85c4559Qh+
-      68lcdTTnAnfndy/T1W/ZOGepkvm5dfzi7uW5faHzj6ziZboWHtKM5u3f3trkxo00vxVb1Px0
-      pb6SM3Dyc68z34857/iXaTkYwpuLyv7KZ1fpVBYnAe5OPPJJ2o7fvrigNXOQeXl9jYKb5jVF
-      QXWBFMuNUgDFUqMUQLHUXOsYIA599g9PWV+r0Trrs1otEAqTYDrBtW1Mx+Dxm48oVOuUCnnO
-      TlsUqnVsAYPRgLEXE/tDMsU6q43quxeoULxPrlUBeudtvCjk4OiUzc1N2q0jEs1g0j0lIsvd
-      j9zFdF2qJZf9Bw/Jb96gc3rANNKxpI+RLeGYLjX18CuuiWvtAjnZHOGgS4xg//CYbueCs/MO
-      pfoq4346lfVsmws743Jy8BRpuGRNiJ4txwvVS1NcH9f6BcgWynz0k5+6cmTr8n8rK6l3zPZm
-      emx9Z/dtXFsUiutFvV4VS41SAMVSoxRAsdQoBVAsNcof4AOQdIbI8TzIntQ6xOYeANNI45+f
-      zadtLeMIQYxFzK14eHncwGZTe+EyPRxKfD/9KR4WzrmwxwDknS1sY3Evo93Ex7jyq/nhKZ7/
-      dCHPcXedJEnfb0U9vNwpOpXfWHCQ+TfK65izdD/qwOyROBzB4/5cpjA8jMLeZfrFU53KJL0u
-      tvKXO0UDDIXGq9rcpsdNRmSSudNKoVCgVEzza1LHjdONdV1Tw7liDBfFkqF3ZfudIIDO3A4L
-      4Gg1i+cszudUoghr1o57nsd4ZgxXz+ewZnZPG8JSCqBYbi5DJC1bhJg4jlWEGIX6AiiWG+UP
-      8F4Zj+D84t3zzTjO1xaispRo4ZJ2qAdjwWl33s+11gzQ0760ScKaDBZk7U8jetG8H5xxM5jm
-      PNhEMy6TTRaV+bvnI6Jk7jjf0HtsGu3LdDdzG8msfrEkHiYL15cLHo6dltnT4HyWteQb1Kbz
-      smOhM9ayC9eOHZvQmLcvxwV5zi7TJzx3OSIZHz68dMAxMMjruQVZp3aMp83f0XeTFnk5H38l
-      oUE0mpdvrq9hrq5y7/R1JsGYT2x+mrg/wH/wgGm9SmxZC/KVArxXWi34g99/z9m//tzPMrbm
-      EVM+KX6LLe0VAF5/YPDbfzz3lir99Tx6Nn1gCjLi303aC7K+uD/g2/25Uuxub1EpzwfGvzD6
-      LLeDxZ26/6ev3mMYzpXm59xv8h/m5k4zr23/Z8R6qjTJOMb7vrdw/U+8fMxKPfV6e+jAv5g9
-      Y586yfMzh/OyfeFy4NxeuPbNtSaD7Fwh74iv8aI2d6T5avxfXyrf/f/r710OuvNajhecuwuy
-      vtSYcOzM2/Ffer/JC8k8YkzYzzK6N99+s/jX/x2Kv/xL/MM//Qc8On/A//Ef/L8Ee085/1v/
-      I3s/+xfw6ot2ZWoaVLHUKAVQLDVKARRLzQcaA8Shz95hi52dHTTxzvmSJAEkEg1BGn1G1zTC
-      KCSKEmzHTqPPCA2hgecFOI6N701BM9CERNNNdA2mUx/btvB9H8dxiaMQNB2SCKEbICW6JkgQ
-      CClJZLrjWBgFIHRkHGHaNrqmdF4xZ0EBxr0L9lpnVCtF+uMQGx/dydI/P6NQraPrJmsrdZJE
-      4moxkwhy5juJhovWIcMwRAesTIn9vT2e21jFs3X2nhyzvtqkc3pI1ikjcwbSj9nc3uHwwfcR
-      1U2CfhfNtNlZzfFnrx9RLZp0ApuPPLfLvddepbm+Rb/bYXVjg0dv3OPmjRUeXyRU9IBWd8hK
-      vcp40KHaXOXirIPlZrl9c/uab6nix4mF16E3HhOFU45P2hwdnzAejZgOO+wdntAbTmnWy4zH
-      Y7pnLY66EwySd5ILQKVWotP16Zx1kH6XOPQ5Hwbki2UajTqagGpzjYt2iyhO0OSEwTShWq1T
-      LhewnMyz2UE0w4Ar+2Gura3S6XQwHZd40sOLQk7OhuQswcgLWW1UaLXnS+bZfAHxLvVVLB8L
-      X4BsqcqL61uzCSrJeDwhm81y++5LAATehE6nQ6HU5FMbu2+V9gNoVp4X7u4CEsMwWN24gT/1
-      sTSDtWaDZ+Yo5WIJy7Fpt8+p5Axw18Aw0cs5zEwB05CsNkJqtQrWeQdNaJiWzc5ug9gfITWL
-      z/7kBoE3xbAcfG+KZdvUanX86QgMFyHHlNZWfmh9FcvHggI42asLGoJsdnGBw3IybG5meK8I
-      IchkFhdonFnasuZ9p2eLOqurswd0ZkRVLM/nbNc3Un+xzdlfqzrbadmtzGW7ad2MWb1Nw7jS
-      hrmhlkLxDDUiVCw1SgEUS41SAMVSo2yB3iu5HGzvvOfs65UMnjG39yloNzFm75vahs6LH53f
-      +mzFRbPTcxlijGRjQdbt1SmiGF6mm7U6uSvjs7y1gogWxziffmGdaTSf9bpheRjOPF1vbJGI
-      dOwlfUnAogGevZGHQropbcmE27Om1BIX9Pk4UNds8kZ54dq1SoaSPTc6q4gNDPGJy/RW4iBn
-      98L46MuXs3uucFm11hZkfaLos2PO610OP4eRzLesFhMHtzDfjdtcS69/fuUlKpl0DKkXi7if
-      +TS13V2C/KKxnTKHViw1qgukWGqUAiiWGjUG+IDEiSS8Es3Qlt5lVEYAksV3S6gZxGIWFZEI
-      Q8yDPni+4LIjKkDYiwZWFnLBqd2L5eXWkQC6riHE4jWOtBByfixIErwr9c2LCfOwMRqRthhg
-      QsaSZ0XqmsTQ0354KNJ/l1dKgRMvlh2jI6/EpEk0QXJli0tLjOf1kvOxjJQxSTC/LwC60BFX
-      ZAWaXFjPN0hwr45fYg2ZzPOPr/i/uBFoVy4WhqEU4IPytOPxtafzXQ5+efQPyMv5rg8crEI0
-      v71/svlxHpdTp5Vt8W0+of3jy3P/82+4jCbpA6IVNMp/Nb9Q1heSDjeveEH93f0B3/khDjIA
-      /3H3F3HlfBD+O3sX/G/352Fd/071b5HVUplja4XXNn514Xr/TY+4lzqi3Nzq8tKd1BvuFQf+
-      4Mr66MrI4t+/11y49tDaZaTP29AqFzmqzQfKf0X7L9BE+iT+ZvzfXA6IJ+19Dn73/1yQ9bx9
-      h8IVWf+kMaF1xUHmxfiQv+l/6TI9PWjizUJUxULyn//CPMTqr37dZrs399JzXv6o6gIplhul
-      AIqlRimAYqlRCqBYaq51ENw5PeakO6KYd5kGUHIEvubSOz2gVG5QX6/zyje/zebuLloUc9Yf
-      USgWMGSE503RrCzd1gH13dtsqCgximvgWr8AuUIBEXoMvITd7XWOT05otY4plYvs7+0jNJPG
-      6hr1SoFhp8f6jZsQjOmNA2QcIzSNRnOVpnr4FdfE9QbJi2MMN8dqo8TewRG7t55DygTD0DEM
-      Bw2oVipomsXazV1Ojp5SrDao6ZLecEiYQKlaQX/XkhSKD8a1KoCbK3L7VhotPJcvLpzLZNLJ
-      5Hw+P0sb3Lg5j4ie+YH8CsV1oAbBiqVGKYBiqVEKoFhqlC3QB0TXBO6VHZCFlYWrrhVuBqL5
-      8N2yzMv8lmYjxNyBJZdzL3eH1nMaWWPRacNIYoScW3VlbZ2iOzcay1uFt1wjLBPk/Oe1XYty
-      bm7wpmWriJlBnmZVsGx74Xqygni2I7WRCcBK85oWZK88Na5lwQ/4VeiWhaHNNz2wbGPxXulF
-      BKlsV9OQcnbONsnlF+2gXDuDrc3lF7PgWXNboEKSR+i1ebsKFbTJbPwooOjO22UVbbQr73wt
-      m1MOMYrlRnWBFEuNUgDFUqMUQLHUKAVQLC3eG/eUAiiWF+n7SgEUy821rgNMuuc8PetSzLoM
-      Rh7lgkN34LFSK3By1qFWLnPW7bB74y79s0P605hGKUNnFJAxEmLNIpPJoIuEduuETKnCpNeh
-      WG0wnozJ57JMh30MJ0fv4pSN3TvYwqPdi0i8PuVyge4oYDoes3vrFpb+Q6J5KJaSa/0ChJMJ
-      ETCdTPDGY0bTCf54QnfscXt3jaP9Y/zAJwhjghhqjsbJMODmzjphorNWLzOaTBiPR4xHIybe
-      lMlkiowl436Hs/MLpJGhXsrjzXYTaB236fXPERrsPXnMKBRsr9fodoc/vLKKpeRavwCm62KM
-      fYqVOuVSQKyZlPMhcSJ58PiI9Z1tDENi6BJTk5xNY5olm0dPj3D1mNbFgGDYQ+TLbO3cIJQJ
-      cjpB6BqbO9ucnHQgHHHW1bBn8V9N2yanJbiFEkQBsZHw9OhswdJUoXiGWglWLC3TV1693i9A
-      5I14sHdMpZin0+1Tr5ZpdzqUCiUG/R7FcpnRcEqlnKE79PAHF5SaG2Qci7OTFvlyjcl4TKmY
-      o1qtvXuBCsX75FrHAO2zLrfv3MEPQm7tNjg6OMcPPHr9EWHg0R+mO4QNJwG3drcpF6s06iUG
-      nRaFxi7BdEAwGXJwcn6d1VQsMdf6BajXSjy4f59yMc/DJ23Wd9bQ9YSJl5CzyowmHpNpSD5j
-      8vDpAdVsFiE0CpUVzlqPyVVqrJZqnJ6eXmc1FUuMGgMolpbpK6+qhTDFcqMUQLHUqC6QYmlJ
-      lC2QYpnRbDudBZJSMhqNPuz6/MiIoog4jomi6MOuiuJDRnWBFEuN2hXifdBuHXH/te/9yMpz
-      NZOXc/OQqd96/ascth8D8D3teU6p81POa/y17O/zR3c/xn51hYmn8903yvx79x/xYqeLb+Z4
-      uPpJAPrxt5Cz3RgaK2tsbt8EoHTyZexJKtes7GCvPAfArz6tUj9uk5tMeO7uHcqlEsk0wX/T
-      w5fHTJN9AJ6KDR6IGxRLOT772ZcA+Gnvn7ESHxPrIZNsGtb0LCrzO6PPXrbnpckUMXv9Nr51
-      DhL0l7KIokHZ6FAxOvzdEjQI+ELSJT5KGH8pNXosbG+S39pASnjzwfxL/lB/yFhM+MnSQ8rm
-      LBTT5hpyvcmXWk1+77TKc4+fArC9uakU4P0QRzHedPIjK09oJhjz+MDTfp9RN10VvxAD2lqG
-      odNBxseMpxsMQoeRr9MeGkw6HeKzC0LLY+qmD8IoukCSPiz5TIZwmh6PR23k6BgAaWfAWwGg
-      PTTRul2i8ZjxaIhrW8SjGL/nMU36TJK0Ll2Ro62NCYXOOEhDH8XeEOIeUg+QZhpeKQwlfW8e
-      ssibTC6jfwWdIQKIRxLNMomNAZg9BgFk8ZHJBfEkJj5LFSAp5KBSAikJu3MFGOsdRmJEJFpI
-      K+3Wy4kOgcFwYnE6MFnppApZKRXUIFix3CgFUCw1SgEUS83CGGDcPuZhp0NRuAwE1Et5pv0O
-      4wBefPE5NCTtp68jGi9Sz7y78M7FBUKGJLqLLgQXnQvWKmX6wYTj4wu2tzfpd86pFErEBpyf
-      ddndvcHe/dfQSyskkx52rsJKxebegyMa1TynfY87t25wuv8YO19mMuhQqq/RPT9lo1HkdKyR
-      EQG9sU+pkGXYPcctVuidn1GorrDWVME2FHMWFCCJY4bDMbVqFhmDjGPcXBF7OiUEbAS1aoWz
-      5B2k/QCuHnK/NcYJjymvrHB03CZn2RRW63i+JPCmmLrk8cOnZNYblLM6Xgi1comkmCUwLAJ/
-      SBKB50dMxwOCOPX8EgL86QQnX6HgwMPTFpap053ERHqC5/uc+AFaNMUtJBSrKwTeCFAKoJiz
-      oABOscqn6w2m/QmNaploMmU06BBk8lzsP2EUQMaMic025BrvKtwp1Cj2AnDKGMLghbvbBNME
-      XWjkshlMTUNmXGJfks9naJ+02aqBkcmBnaF3/AA7X0EzbBzHwMnksCMfkAihoVk23rBDy7PZ
-      vHUHGUzZXm/QOe+w0VyhfXKKabogNPrnpxRrzXets2K5WFAAM5P2a+yqPUu7uJn12dn6+xYu
-      NIPdna23PWdX5pHDS8U0ynm1PPP6stO/N+88d5nnIy+lO/6uzKqzuXtzduatD3VptsNwqTDf
-      aXil8e4Kq1g+1CBYsdQoBVAsNUoBFEuNUgDFUqOsQd8HcRQRhsE11eqtCASWNp+n8IMpcZLa
-      vQSYxOg4IiAjPHzTItJ0pBQEoUY2DDGTBCk0Ij2dOk4IgPTn1nUdXU/DGGnxBCFTuUIzELPj
-      F5GOFsdoUmKaBpqmgQQZSiTxpV1RhEGIgaYJbDsty5EeuoyQAqRIDfBidKbJlZBFcj6frvuz
-      /1sChEATCToxQw10wCGGGJJJWn/NMNAMHQlEc3MpQkKkkNhahMZMpmGArjGJdbxYx5yZwRuG
-      rhRAsdyoLpBiqVEKoFhqlD/A++AbX/q/mY4G3HDPqFtDHpoO/8Ip8qnwgnHhU4ycXRzP55N/
-      /C0AWpbJ65m0m/Wp7U9iGzZhNGXv6Ouciwp7YoP/KPc7xHrIr2dr5HM5atUyJBbRaBtTSjb9
-      eQd33S5R0NNQp/f2XuG81+JMVNkX6/y8+01uGseMHZdv3HqRg1aWwcig7AX80swB5KD+ErGW
-      hm4Nkwt8mW44traxTS6fhm21R4/IDP4MAGfrE/yjXp5HvkGj08X1fFzXYXdnh7gXE3Wimaxz
-      fNlmTIZ7WroJ8Z07WxSLOQpJj4/53wQg1mN8Z75L9++NPoWceQTc8AOQkDsYY4wjRMNEa1is
-      msd0DMmfuFCWER+TqY1/eD8ifDMGBLWPPH8ps32W4PuSI+0YT3gAbDod1uweNKpE1Qq/9jhd
-      nC0NhkoB3g/7b7zC8KJNpfCEcuaclpXn6/kmDX+fbs2hU3DIDkc8/0dfB6Dl2rxaSh+s3XiD
-      rJ3F8/s8fuNP2BPrvKLF/LXKV4hMj6+Xt6lVK2zrG8jIIexa2EmCOfEuy6+4IXkrlXd67/vs
-      nbzJE7HJ97SIlwtfY9t+g3G2wL1awvf2i5x1HNZGY37+W68AcLTjEs8GuNPkgEnyEAAr9Ehq
-      6Up5rvMdrLPfSwu0NF47qfPNsc3uwRHF8Zh8Podr6oStgPAgnMnaY5I8pkORP5zJj3NFmrFB
-      Pe7ysclrAEg9IMrPt7l8vbOGnHVC3FHqHFP5sw52L0TsOuiRy6rzBhMT7hVhVfq8lKTONd79
-      AP/rM0eY7DyG8uhJxGQi2dffYCRSZcnkDmnkWshgk1Bs8PsPU6ea1faZ6gIplhulAIqlRimA
-      Yqm51jFAMB2xf9RmZaVK+2LEWjWHL2y8UZ9cJoOddXjwxpuUG00K2QynrRbFWgNbkwxHQ7wQ
-      gnGPXHWFtYay41f8q+davwCT0YgwTmif99jeXOWs06PfOWfYOeXBowOkZuLmctRKGY4fP6G0
-      vs2oc8p+65zxYIDQNLJujrp6+BXXxLUqgGnbJP4IhMaTvUOG/R6d/pBibQUZptuLmKYJCPLl
-      IkePH4KVpZgxkLPpOsM0UbEdFdfFtXaBsoUyL360fOXI3DmmXk+n3dbX1gBorm/QXEeh+JGi
-      BsGKpUYpgGKpUQqgWGqUAiiWGuUP8D44uPcqoe9TMcdkdZ8L3eSpYbMeTwjsdQKzghFFrO0f
-      ATDUNdpmahuzXlrD0A3iOKQ32GciXHoU+bj9ACli/szKYFkW2UwGKXVkUEKTkmI8dxop6A7O
-      zEHmrNdiPB0yFhn6FLhtHlLRBgSGyWG1SX9o4gUabhTzQqcHQD/bQIr0nRfLCdHMsKxQLGHZ
-      qZGdEVxgeqmRnFFa43XP5iLSyE2mGFGMaRqUy2Wkl5BMkgVZoTA5m+27VKuVsB0LR3qsxocA
-      JCIhNvzL9jwM1mE2x1eOUqcZqxeghwlkdUROJ68PmAo4MFOnmDWZOiTF5wnxefroZpvzHUtG
-      Y0kcw0AMCGcOO0VzSkGfQi5D4rp8o5vuQuL6gVIAxXKjIsQolhr1BVAsNcof4D0SHrfwXnvt
-      Qyn7fsYhFIISFg3S3fsSIRjq85+vUC6iidmauTFF6CG28Mlo6Yr7KzSI5TvPebhJQj5OyOk2
-      BSN9MfQnEUjJKEp4rZ8G03Ack/X1+S577vlvgYxxhg6Zflo33bbINNJ+eaebICXkVqoYbuoQ
-      3x9HPHPOt8I9rPAxXZHhm/oNAEpBwMfOUrv/3Ob6pSVA19fo+mkqV8hhGAbdXJbQ0DkdfBc/
-      6lNLfKoyHWf0si8R6TmCvQMg3WTgTuMWI8dh4lggY6UA75Xg0SO6f/9//1DK/u1Ghamuc4si
-      n9HS6C2BEBzY2cs8u8/dRDfSn1PLnCLMMWW9Q8ZKB7RfTT6Fh/mOZTSCkK0gZMMqkXPTB/zk
-      ZIKUcDjx+V8epRFkSqU8X/jC/MtZ/+5/j5A+tb0azUdp3axigcxPpGGZWq+HSAkbP/ES2UZq
-      FdBqzaPsFEZfojT6Tfa0VX7N+bcBuN3rs/3d1Cst9xf/QroTMnDa0bnfTdu4vruJm81wb2OF
-      kevwjaf/mN7kIS+HHT4ap4P+B2u/ysjeYvTlr6T3RWj8yqf/BofVEieVEiSBmgZVLDdKARRL
-      jVIAxVKzMAYIxn0eHZ2y0WxwdHrB2voK034HX5psra8AktOjA6SVY6VeeVfhQRCgkZBoJkIm
-      hGGIbZqMJyOGY49arUYchViGgTB0zs8uqNdrnLdP0SwXS0sw3Ty2ASen59SqZc7OOzSaK3jj
-      PsJ0keEU3c5CEmGbBqHU0GRMlCQYus542APDIfQmFCt1bFO/rnup+DFkQQH8wRDNhpO9E3zX
-      ZjQYIISB4Xv4gA3kCgV6o/e2PeDw/JQLP8RKQux8nYO9fe5uNJGlPIN2B8E5vTKZDjgAAA1Q
-      SURBVPMWppZF5i1sCX5UJZ70iW2X/sUAKXtsruQ4Om7jjS648G2qjYSnjx9TX9tkPJ6wtmpz
-      //Xvs729ypOLkKoRcdIbUq9WmQ47VJurTKchg/19bt3cvYbbqPhxZaELpBkWhu6QL2a5fXsX
-      yzDxJkM6XsDw7JSj41MeP3oM2nvrOZVqFQbdCZ2LPsn0AkFAuzfFsmxcx0EIKNeb9C5O0QRM
-      J33GfoJjOziOQ+BPuRqNKY7jy/9XqhUuOh3CYEq33cJP4LTdpZQx6U98VlfqnJzOt+CYjEeX
-      e9AoFM9Y+AJk6w1uXkln6jVq9Rog8aZT3ATW1lbe82OkmRk+9tE0yosQgrUtjTiO0TWdzbXV
-      Z7Nb1GsNNEPHm3q4roHMboLQyN7cRTMsdAEvPJ/FcWw8z8fUdWqNFRqGhYwjEBqrWzdI4hih
-      6SRrK2iaxmpzhSSOQOgU8wUsx/mXv2OKP1e8x3UAgeO+h7CQP3iVEBjGYhHP0ro+VyNt9kXJ
-      zEI0CZH2058ZaAFks9nZ39n1zmwu2pj36S/nwbVnfzUwn819zzdPUiieoWaBFEuNUgDFUqMU
-      QLHUKFug94ixtkb+F/7Sh1L2Z3JZQk1Qx6Uq0tCvkRCY+ty2p9qsI7R0XCWsLEKfGcLp6W7M
-      H5dbhD/kfZePE8pRTMlw0YwcAJVCASklehjzbzXTY65rc7sxHw/mXvobICNy61nyd9KNe3XH
-      ge2NVEY1AQn29ipaLh23VWdyAZzgJzH9HE1R4K8YHwGgPvXIr6TXc/fWZVnlicaNSdqGYrWM
-      aZncKuXxTZOM8TmmwXOsJxNWkykAmeJHCIwy/ud/Jr0vQlDZbKJnM5QzLkhLmUMrlhvVBVIs
-      NUoBFEuNGgO8D2SS4A/79HyYzLwphSbJFn00JOVZpMXzwGIU6eQRNGbLHVNNIxQa5szJRCII
-      Zg7qpg26kWaMNBNft9H9U7Q47b/bYweRCDxNMNLTdQ8dQUHM1zYCoV2udJuWiaZrCBHDLEKj
-      rXnpWc2A7NyJ/BnjwGfo+5hSYiZprzin2wggkRDMnPPDRHJ+JWpNsZgDAVrYRQ9TJxYRa9iT
-      1PnFzOcQAvwAkplcu5C7XEyNEkmUSLTEx4hT3wUPkxOtCMDmcHxZlm5b6LMolKNQECUCyzIR
-      uoZvmsSawA/7BPEAgHwSYiCZ2muzH1CSDIa4lotjzjYBeIffWvE2RL7H0z/6HX79AXz7NP0J
-      7UzIT/ziA3Iy4leSNgB///EWf3Be5WeFxn86W5x7lMvSsm0a3zhD9xNCIdifObSs3tYpNFJl
-      aDtrPCk8R+HJ/4DT/SoAd752FzMw+X7G4Q+L6SC4gMVf1uZ2TU/sLMlsaX1lc41cMY+w+mhu
-      +lDedu6jiwSyTfjMf/KWtn3/5Jh/9uAezSBkM0gf8J8u3MIQGl4Qs3+RelkdTnz+9sw5BuAX
-      f/HzGIZO5uT/IXf89wBw+y43vpPaFGz+7M+AptF6GjEapwpw59/8KcRs8fNiGHIxCrGDN2l2
-      /jsAXtdW+a9mzjG/9tU/ulSW4s0dijNbrleOTC487S2OMQ/aX+Tx+ZcB+Hn/iJoM+d7N/xZI
-      X2CjL3+Fj228zItrL5IIobpAiuVGKYBiqVEKoFhqlAIolpprHQSfH+9x3PUo5W2CWCdvxvha
-      ht7JHvlSk/WdVb799W+wc+sm0vPpTHxyuSxGEuEFHqaT5/zwCSu3nmdDRYlRXAPX+gUoVOqY
-      8YSBJ9neXOX07Jz26Qm1ZpPW4QFCM1nb3KRRLeKPJ6xubSOiKUM/QpMSoWmsrm3SVA+/4pq4
-      3mlQmeAUa6yvVDlunXLruRdBSjRNw3Vz6ECjXkfTbdZv3aJ9ckylsc6qLun1B3gRVBt1lBev
-      4rq4VgWw3By726kR1fbmokONM/POeuYEY9s6m9s7l+ebbhaF4rpRg2DFUqMUQLHUKAVQLDXK
-      Fuh9IDQNp1hhrQm3ZsZrlhvRdCdkiNGSdDyzWl7htiiyIjTQ03eM62YoWCbuukAPE0whKM0M
-      srI1Hac42/XYzlPNGOQqW1jGiwDYuzsYoU7RsVnPpWXkMHG1+S7NJcshmVnNZBsFnGwGYUo0
-      e+buYa8DCbhvv6FZ1rJZzRepRBGFMDXq07IuQmhoUYIj00elkLW45c1l1HMmmqbhlBpkwll9
-      XQfrxizmba0OmsAKE9xpWhdRyCBmdkumbuJYEVZYRTNfStum1bhtpW2zbt5AzJqgr69BrZbm
-      kSaxL8jW81iOQzlnYdsGk2IdZOpEUwuLlGTMaj41rJMyYbK5RblZw6lkkUIohxjFcqO6QIql
-      RimAYqlRCqBYatQgeNkYncJ3/s5bj298Fm7+3I++Ph8ySgGWDgnJ20THTOK3HlsCVBdIsdRc
-      6xdgfH7K086AvGMxHHqUSg69nkejnufsvEexUKQ37LG9+xz90z3605h6OcNgmmCLAAwXy3Ew
-      REK7dYJbqjDtdajUV+kOupTyeaajPlamSOfihO0bz2EmI1q9GDnpUK6U6IxCgumY3Vt3cEyl
-      74pFrvWJiHyfGAh8H8+b4vk+nucx8iLu3NzgrNVm6nkgJbEwaOYszicJN3fWSYTNWqOC5/lM
-      vSnT8YgwivH9AJlIEn/CWaeLZhdolAuEYerIfXDQot1uYbsuh3uP8aXB7maTfn95AoEr3jvX
-      aw2ay2GOfcr1FRq1kFAY1MoRcZLw4EmLnds3MQyJEAmuqdGZxqyXHR49PSJvQetiQDwdYhYq
-      3Lz7AkEUILwMQtfZ3Nnl7LyLIT3OehruzLq02lilJiVYNrpIiDXYb3W4cfPGdTZV8WOKWgle
-      NkYn8K2//dbjGz8Jt3/hR1+fD5lr/QL44z6PDk4p5lz6/SHlcolOv0s2U2A6HpDNl/C9gGLB
-      ZjAJmXTaVNa3cEyds5NTcuUKw8GQWrlIo9m8zqoqlpRrHQNcdAbcuXuHOJHcvrlCu9Vl6nn4
-      vo8/+wsw8WNu7W5TqzZo1suM+2eUV2+SBBNMIg5Ozt+lJIXig3GtX4Bms8aDN+9TrZR59PSC
-      nVtb6LpkNA3ZWK0zGI0ZjXxKeZeHTw9oFItoQqdc3+Cs9ZR8pUGlamFeKAVQXA/XqgC65fLc
-      3bsA1Otz091c6iVJdmamClAqz68r5PMU8s9dpvP53HVWU7HEqIlxxVKjFECx1Khp0GVDSpDJ
-      W48LAWL53ofKGG7ZEAKE2mnpGQaAlJLRaHlMBaIoIo5jouhtrCLfgSRJLgN6v11ayfjRy5BS
-      ImcbrX1QGaoL9B75ID+wknG9Mt5OAd4vqgv0HvmX/bGVjH/1MoQQl7tLfFCUAvwAwXTIvQf7
-      7NzYJvQmPHpyyNZmg+PTPndvNHhw/wCQFDa2OHzwJp//3E+9RYY/7vPm4yN2drcIpmMe7R1z
-      98Y6j44uuLVZ5cmjQ6SUlDZ32H/z3tvK8EZdHjw9SWVMRjzeb1HMmmSKDXJ2zP7TI+IEqlu7
-      PL1/j89/7l97i4zJ4IJHB2fs7Gzij4c8PTillLfIlhpYwqd12CJIoLF9k8dvvP62Msa9c54c
-      d9je2cAf9Xl6eMZKNUe7N2GzWaJ9cooXw+rOLR6+/v23lXG8/wQfi2a9wsXJIcMgYtIbUd/Y
-      Ip506Y5DpD/hzu0t3jwe8amXbr9FxuHeYyLNoVkrcdY6YDz1GHmCtY11vH6b3jRGemPu3Nzg
-      wanHJ1+8+RYZB08fkRgZGtUS3dMjRnGipkF/kDj08KZj2hd9DMPEtS103cS2LSSAZlGt1vB6
-      J2SKb7/HThR6eNMR7c4Qw0xl7B0e4U3GSCRCt6nU6owvDsmVa28rI/A9/OmQdmeEYRg4toXt
-      OJxfnIMEYbhU6w2G7T0K1bcGvXsmI5j0OetOME0D27EYjSecnqbB6DBcavUm/ePHFK8sVF7F
-      96YEky5nvSmmkd6HQj7L7s30IRVmhnpjhc7BA8rNlbeVMZ5MaLfbJEmCYdrYukCzLGSSBtEu
-      FousrVS4/7RDLW+9rYzJZMLpaRspwbAc7GyZalYwmnggoVQsstoscf+gRzVn/hAZpyRxQOv0
-      gmGvo8YAP4iUktbRIbWVdYJxj+44JGsmhMKhVs4hpY6MQ/wwROgGWdd5Rxn11XW8YZf+NGZ9
-      pYHne5iGjhA6SZTK0HSDzDvIOD48pLm2zmTQYehLsqYk0lyKORtNM4ijkOCHykg4OjxiZX2D
-      ce+cUSAoZXQmkUYp76LrJlEYvKuMw4Mj1jY2GHbPmEQ6lUIW27EJwxDTNAmDVIauG7hvIyMK
-      ppxcDFhfadA63CNbbjLqnFJZ2UCTMbZt4/s+YRiiG8alafuCDH/CSWfE+kqd44On5KsrdM/a
-      bG5vEQbBe5IRemPavQnrK3WkTPD9QCmAYrlRXSDFUqMUQLHUqFkgxZ8zJF/+4m8QGkU+89Hb
-      OKUm7cMnZG0bciW84Yit1TL/8Nf/CZ/55MeVAij+/CElmIbOH/zh11gtuxildf70SRt3pUzV
-      Fty6ucPtW7cxvKEaBCv+vCF58uANhFvBSiZgWPzzf/pP+ewX/jKlooMp0mnXfr+PJZQpxIdd
-      FcWHzP8H8K8ce/Whpr0AAAAASUVORK5CYII=
+      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
     </thumbnail>
     <thumbnail height='192' name='Sheet 2' width='192'>
       iVBORw0KGgoAAAANSUhEUgAAAMAAAADACAYAAABS3GwHAAAACXBIWXMAAA7DAAAOwwHHb6hk
@@ -28939,6 +30033,117 @@
       IpS1HaWrzo4ou6jwGkwPj7CwlsVXW4uiWalvrcFtMaOqKharFRkFu1VGtPpwmQXMZgeCUMBT
       U4dXldFEFZfDhqzYKLNkiYll1Nf5EHNRRodGWVxcJBSOYvbW4rUIzI3cYmYxRFop5/DRA/gt
       4pYG8AujDv1PhZI47meLn0Uc9/8BwRoFKhPYl4QAAAAASUVORK5CYII=
+    </thumbnail>
+    <thumbnail height='192' name='Zoom In' width='192'>
+      iVBORw0KGgoAAAANSUhEUgAAAMAAAADACAYAAABS3GwHAAAACXBIWXMAAA7DAAAOwwHHb6hk
+      AAAWj0lEQVR4nO3dSY8kaZ7X8a+ZuZub77t77JmRmZVdU1XdPS0G6MPMgJgRHEYc5yUgLojh
+      xNuAKweGw1yRBgkQ0hw4jDjQKnpq6apcYt993932jUNEZlNNVmRGZHp6hNnzkUqRsnC354ko
+      /8Xz2PO3RQrDMEQQYkpedgfusjAMEX8fok0E4Bqu62Lb9rK7ISyQCIAQayIAQqyJAAixlgDE
+      gd5biN9PdCVe/WM+ny+zH3eS53kEQYDrusvuirAgkqgD/DjHcQiCAE3Tbr2P3r/79wSTyQfs
+      1fWKf/7naJ9/9tHau+8Sb3+J8D6c/QP8fv+jtRfMZh+trSi4VQBsfcbhyTnbTz8lpfz46ybj
+      MTIuvpxBkULGkwn1YoGJOafTGbH5YJP5ZEw5lydIQKvVY3v7Eaf7z1HydbAmpPJV6kWVl3tn
+      NBtl2oMZTx4/Qkv+eMOXg5qE49ikUikgZDoakSmW6bbOqdWqHJ9esLbaYG56NGvl2/wahAj4
+      QQAmvTannS7ptEZrYLJSTCInk+w832Hz8U8olYqsr9RRM1kK2RRvmzwlfIP9vk3aPaPQ3KDX
+      G5GWZPIrNUw7wNLnBM6cvd0B6ZUKpZyK40MlnyMoZnCUJI45w8+kMUyH+XiA5alv/aFm/Rbz
+      IMH5RZu//4ufAWBOx9gEBKHMzotnkG3S7w8JgpCgVhbLYTH1gwB4jkMoKQQolAtZHHtGVtNY
+      29wmX8hRy6d4+fIlShhghjKVMOC6ldR0qU5qcEKQyCB5NrmMjG555CQJTUuhyjJqqoGln1NM
+      qwx6PdJlSKY0UNP0RyekcmVkJYmqJkioGgk3eOsP5TkuE8NAlmV83wdCRqM+UihjDkeUak0m
+      /TbzdB4vCJHe97co3Fs/OAh2HQdFVa8+0iGO46Kqb/+Le2eFAacnx3iSyvbW+o3f/iEOgs//
+      1b/+qMcAtX/zF2R++Q8/Wnv33Q9GgOQPPuzSe3/4A8/m+KzDxlqdVnfMaq2IQxLPNtBUFctx
+      yGXTGIZJq9OlWiljuSFrK/UP81dZktl8sP0h9iRE1EJXgYa9LpbrcXLaZnNrk07rnEBOoA87
+      BHKWdBb6vRBbBz+joFsuOcVhOHep5pKL7NpHU/jnf0ZgmB+tveTmxkdrKwoWWgfQpyP2dvfQ
+      SjUUWcEY93AklY1mlcO9AzaePMYeXeB4Ofy0TJoQ27Z48MkX5FLLPyz9EFMg4W4ThbBr3OcA
+      hHOT0PHeez9SLo2kRrdcFN2fLOb8oy5hf/re+1G+eIBUK3yAHt1Ny59nCMISRXIEcCwdkmnG
+      gz6NRgMIONndpbyxydHOLtVqkcHMo5hJ4EvJWy2RCtEQyQDMBz26VoChG1cBkCmXCpiWzsra
+      JqNRD3yXgDy6rnN54oQQR5EMQLpQpqLaKJLM8eE+HklkVydZqGJNe9RqdfqDIdm0RoAiPvwx
+      Fs0A5Iuk89Cov+GbKw0AKpUKAG96iRAfkQyAAMjS5X/vK+LDo6gDXOM+1wGEdyOWQYVYE1Mg
+      4U74T7/6DxwM9m78vj/55J/xjz/501u3KwIg3AkXk3P2+7s3ft8v1v/gvdqN9BTo/z288X2f
+      MAzxXJcwDHGvvl5eMCPEVSQDoE8GTGYz/u6b7662BJzuvmA4m/D82TNevnjB7uEpxmzM//n6
+      +6X2VViuSE6B7PmMCyOgXLo6iSuUKBbz2K5DoVhiMOgToPNsNsW1LPwQlIgv9wlvFskAFOqr
+      pD2Pydx4XQlOJ0GVVJQMbGz+Pr1en2aziePY4sMfY5EMQEJNkVBTpDNZfqzWu7LSBLi6bYoQ
+      V5EMgHD//MnTf8rP139x4/c9rf/ee7UrKsHXEJXg6BMjgHCnuYFLGL79XlC3JQIg3Gl/ffhX
+      nOpHC9t/JOsAgvCuIhkA1zJwfZhOX10UHnB2dIjpOLx8/ozxeMzO7gHdTovDk/Ol9lVYrkgG
+      wJiOOb845eX+0dUWmWJWYzYfU62v8vLFCzzfZTbX8TwPsQoQX5E8BpCVBLIUkElrrwthoTkm
+      UayhDzs83H7IYDgilcoyM8RjUOMskgHIVxvk/7+tW5df1tcAaDZXPmaXhDsqklMgQXhXohB2
+      DVEIW76RPcAJFjdNjeQUSIiOcqq60P2LAAix1Gu3GPa64hhAiKfxcMDJwV60R4AgCJDly4x7
+      nouiJHAcB0WRcRyXZDJBEEqk1Gg8jEO4uUiOAPq4z3g65atvX13uGHC+v8twNmFvZ5fTiw47
+      L17QHwz59vvnS+2rsFyRHAFsfc6FEVAs5i43hBLZbBrHtklnsqipFNXGChlVIakoXP+sSyHK
+      IhmAQmONjOcx063LSrCUJJdKkUqmUYsKpXKZIAxxTJ2NzQ3x4Y+xSAYgkVRJJFW0dAZqlTe+
+      RgGS+SLZj9s14Y4Rf/yEWMrlCzRW10Ql+DqiEhx9YgQQYk0EQIg1EQAh1iIZgMD3CUIwLetq
+      S8iw18P1A06PjzFNg8OjU7rtC3b2j8QVYTEWyQDMh11anQ7fPd95vS2wdcbTIUoyxe7LXUaj
+      Ptlyk7SaiPpTgIRrRLIO4Hsec8MlkVAw9DkBEoNBH9mXMIZDVE3Dt0z06ZBM4c11AiEeor0M
+      Ggb0ul18KcFKo3bjt4tl0OiLdgDekwhA9EXyGEAQ3pUIgBBrIgBCrIkACLEmAiDEWiTrALYx
+      I0yk6XbabG1uAAHHOy8pbWxyvLNHNpdDNw00LYPtBvz0s6fL7rKwJJEMgD4a0DEDPNe52iJT
+      KZewbJPm6gbt9jlhGOB6Hp7ni0siYyySdQBLn2HYNqOpQSJ08UgieyZqoYIzn1KtVen0h1SK
+      OaaGy8Ot9TeeDiHqANEXyQB8KCIA0SdGfiHWRACEWBMBEGJNBECINREAIdYiGQDf9y4viTTN
+      qy0hg24H1/c5OTpEn884OjlnPh1xfNZeal+F5YpkAPRhj1anzXcvdn+70bUYT0ckUxle7uwx
+      7J0xcxV8VzwkL84iWQkOfA/dcEkmEsymEwIk+v0+cunyksjm6gqjfp9J9xSSWUIQ1wXHVLQL
+      YWHIcNDHlxLUq+Ubv10UwqIv2gF4TyIA0RfJYwBBeFcLOQYIw5D5fL6IXX9UrusShiGu6y67
+      K8KCiCnQNW4zBfry5H9je9bbX7ggnzY+p5arL639+yaSq0DL9Fdf/iV9vbu09v/iH/1bEYAb
+      EMcAQqwtdAQYds5oDQ2KeQ3LlShqYMtpxu1TiuUGzY0GX/3qS7YePUJyXfpTg3yhQDJ0MW0L
+      Rc0ybJ3Q2H7KRuPdnxjuWgYkM+jzCaViEQg4Oziksr7B8d4eG9tPOD895umTh+wdnPH0k0eL
+      +yUId9pCR4BcoYzsmUytkO2tNVrtDu2LFpVKmbPjUyQ5SXNtnXqlgD6esrb9CFydseGA7yPJ
+      Ms3mGs0bfPgB9PGQk7Njdg+Or7bIFPMZ5vqEenONw70X9IZTDvcPmOkGgTgKiq2FjgBB4JPM
+      FFlrljk5a/Hok98jDAMURSGRTKMA1WoVWVFZe/SITuuEQrVJQwkZT2c4AZSqVZQbtptIaaQC
+      m2wmffmUSJJgTUgUaxijHqvrm6RHIyrVMgwni/jRhXtioQHQsgWePC4AsJ0r/OB7mUwGgHzu
+      8lm+6UyCh48ev/5++ndefxO5co3cjxV+11YBqFcv7wpdLou7Q8eZWAX6wCqZCuESH7mhKqml
+      tX0fiTrANcSpENEnlkGFWBNToIgZ/se/xPz6mw+2v+q//BdoX3zxwfZ314gARIw/neL3eh9s
+      f6HtvP1F91gkp0C+5+IHYBjG1ZaQfruN4/scHR6g6zNe7uwxGY84ay3vtAVh+SIZAH3Up9Vp
+      8f3Lvdfb5MBhMh2iaTmO9vdwwgSjyYzAMQmW2FdhuSI5BQp8H9NySSYTjEdDfCQG/R5yqY4x
+      HFKuNxkPejhyDscLxOWQMRbJAJRWNigBhCGTyRgZhac/+3uX39zaAmBzfW1p/RPujkgG4DVJ
+      oli6+bXAQnyIQtg17mMhzHr2DK/f/2D70z7/nET1Zicj3iciANe4jwEQbibaUyDhvQXDGdiL
+      vyZaquSRUsmFt/O7RACEawXnA8LBbOHtKD/fXkoAIlkHEIR3FckRwNKnhAmNs7NzPnm8DQQc
+      vXzx+imRpVKOsSVR0CRQNLa31pfdZWFJIjkCGOMhh6dn+IF/tUWmWinjOhaNlXVMJyC0Z4Qk
+      GI/HSzx7X1i2SI4A2XKNtazDaGq8viRS8S3UQgXXnrOxvka3N6RSypJMaaISHGORDEAqkyOV
+      gVLpTZc71gDI5fIAiDpZvEUyAMKHI6lJwrS6+Ibk5YzDohB2DVEIi75IHgQLwrsSUyDhXvtv
+      3/81/+PZf731+0UAhHvNdE1G5vDW74/0FMjzvNf/tgyDIAwZj0cEQcBwOCQIQwzDvGYPQtRF
+      MgCzYYf+cMTX3z2/2hIwaJ0xnI7odwd89+23XPTGzMcDnu8cLLWvwnJFcgrkmiYdY05au7pL
+      WigR+C5z3cT1XGRFwdZH7B3rmLqOH4IiqmGxFMkAlFY2KAQBluNeVoKlJM3VTeRkCooltEwa
+      0zDJZLIEvi8+/DEWyQDISgJZgVxSJbf9+He+ezkqZLNZAJTETe89LUSJKIRdQxTC7r6T0TFn
+      45Nbv18E4BoiANEXyVUgQXhXIgBCrIkACLEWyVWgV0+JnE9HlMtlIOB0/+DqKZG71BtNBuM5
+      xZyK5UniksgYi+QIMB8NODo5Yu/o9GqLTKmQRTemNFY2ODg4xA9sTMvBtmxxSWSMRXIEUNMZ
+      sth42exvnxJpT0kWahjjFp88fUK31yetaXhmtO9/L1xPLINeQyyDRl8kp0CC8K5EAIRYEwEQ
+      Yk0EQIg1EQAh1iK5DPqK67okk5d3HDb0OalMlslwiKapjCYzCrkcbgCVUmHJPRWWJZIjwGzQ
+      oTsY8s33v70kctxpMZqMGI8n9CcmtjHHdmyOTk6v3ZcQbZEMgGuZ9IcjUuqrSyLBsU2mcx3T
+      NEkkZNR0Hjn0CTxfPCY1xiJZCAsCnzAIcTyPbuscT1JZa1SQE0nCIEBNqRBC4Ht4AWipN9/6
+      TxTCoi+SAfhQRACiL5JTIEF4VyIAQqyJAAixJgIgxJoIgBBrkQyA51h4Aei6frUlpH12hu15
+      7O/tMJmM2d07oNO64PnLfXFFWIxFMgDGZESrfcGznf3X29JJiclsRL5Q5fjomPl8Qq7SJJdJ
+      iYfkxVgkzwUKwxDHdUmpKu2Lc3xJQe93UUp1jOGATDaLaZqYsxH5cm3Z3RWWKNqFsDDEsi1C
+      5N/eKfoGRCEs+iI5ArwmSWhaetm9EO6wSB4DCMK7EgEQYk0EQIg1EQAh1kQAhFiL5CqQORsT
+      JFIcHB7z088+BQIOXzyntLHJ8c4emqahWxZaOoPjBfzip58tu8vCkkRyBDCnY47OWmQyr9bv
+      ZWrVCp7rUG+uYjouiiIRBiFhEIhLImMskoUwxzKwXZfhRAfXxCNJIrRRcxV826BWr9JqD6hV
+      ckx0l/XVxhtPhxCFsOiLZAA+FBGA6IvkFEgQ3tVCDoLDMMQwjEXs+qNyXZcwDPF9f9ldERZk
+      IVOgMAwJgvt/aOm6LkEQkErd/EQ64X5YyAggSRKKcv+fwP7qL38Ufpa7zvv2iHA8v/H75AcN
+      lAeNW7cbyTqAcA8FAQS3mIy85wRmoQHQBx2OBlMKmsp0ZlEqaYwnFo1agV5/RKlQZDSb8GD7
+      J0w6x0zMgHo5w9T0SUkuJDRSmoYiBXRbbTKlCsZ4SKW+yng6pljIYc6mqJkCw0GbB48+JZ9J
+      4domUjKNZczJ5XJASOv0lMrqGqcH+zSaDS7aA2rlPDPLE0+JjLGFrgJ5lo0P2LaNZZlYto1l
+      Wswtl6ePN+i2upiWBWGILyVo5pL0DZ/HD9cJrm5naFo2pmVi6nMcz8e2HcIgxLfn9AYj5FSe
+      RrmA67qv2zWnEy5a5zzfPXi9LZtSmMxGFEt1zk5PcEKYzqaIVeB4W+gIoOZyJHWbcn2Fes3F
+      I0Gt7OEHAbuHLR48eUwiESJJAemkzND0WS9r7B+dk1OhNZjimzOShQqPf/IZjucgWRkkRWHz
+      4SN6vRGJwKQ3lkn/YK0+xPM8UimV89NjPCmBM+6iFOvowwGVeoPJaICarzCezglBXBccU9Eu
+      hIUhrucBEsnkzbMuCmEfj/f1AeFYf/sLf4f8sIHysHnrdhd7EByGXLTaVHIaOiqyb9NttWlu
+      bZNNBByetqlVivRHM+rlLL3hjFo5T380p1rOMZyY1MtpxnMHYzqiXF+lkNNoX5xTrq9gmha5
+      jEaxWHxz+5L0+gEZgvAmCw2A78zptHskGjV6zhCNgHJ9lcmgy0yWePLkEacnp2zWNZ4dDckq
+      Np2xhGTP6I5CEnKC8dziweYmxyc+9VKe89MdCiufMu0dMp4azDKFHw+AcG/Ij1bAu3nBUUq/
+      +db27/z+RU6B+q0zuuMJKTlNuZmj3ZvhzWfU1jbJqwHnvQm5dJLpdE6h2kAJbHwSKHg4jofj
+      S2TVEEdKkUpINKpVRpMBnfaAYrlEStM4P7vg93/+04X0X0yBoi/axwDvSQQg+sTJcEKsiQAI
+      sRbJALiWgevDcDi82hJwsrfD3DT57ttvabcueL5zgONYfPdsZ6l9FZYrkucCzYY9elbAdDKj
+      UqkAMuViHsOcsbK2yf7eLrlijm+/+Q2mE+KHoIhKWCxF8iDYmI6YmjaTmYGmhHgkkZw5yUIN
+      czKgubpKu91ja3sbYzahUqkivSEA4iA4+iIZgA9FBCD6InkMIAjvSgRAiLUEXF7COJ/f/Gqc
+      qHt1TbDjOO/0ekmSCIIAWZbF13vyVRwDXGMZxwCv/sd8bHFtV0yB7phlfBji3G4k6wB32bNv
+      vyKRLbG5tsLxi+9RCkVGgynbT56QQGdqpEjaY1Irq1Q0hS//7jmPNwoMnByD45f8wR//Ebc5
+      wfu7b36NVqixvtJk/zdfk6rXGfXGPP70KYEx5aI/Q5NdKitb1AoqX369y4OVNIZU4WL/Gb/8
+      4z/iNrcG2Hv5PVaQ5NHDTSb9c2Yzh5FusNLcYKWR58uvnvPFTx4yNVy2Nlb59a9+xc8/2+LX
+      Jzbq8JQnf/iH5N+0Rv0WO89/gytpPHqwQb99jGWHDKYG6+ubeM4MH5VEYIgR4GOr12tMpzPs
+      +ZjB1GA600kmFDzfp1iuoCoylVoNWYJhp4VtzZnYMu68RzpfuX27tct2zUmf0dxiNjdIKhKe
+      H4Cs8PDBFoZh0Ol06J6fY1tT9EDDHp+RLd3+rgv1eoPZdEroO1y0+0zGE1Q1ReC7HJ+c4jsW
+      mWIVVQHPGGA6NscXIxQFFPn2pzpftjsj8Cza3eFluymVwHdJaxqDfp+5bohjgOss4hig1z4n
+      XayTS6v4roMXBLTbXTY2Nxn324x1Fy0Z4MsajUqJlJpgblhIgCwraJn0rf5qdS7OyFebZFJJ
+      PNvGJ6DV7rO1tUG/fY7uylTzKp6SJqMqpFSFmeEgE6IoClo6favLRifDHr6SplLMAQGW6dDt
+      tFjZeICakLFMC302YqS7bK42SKZS2PqUQEoQhjJaViNxixFg1O8gpfKU8hnC0Me2XDqdFmub
+      D/GtGf2pRa2giQBcRxTCok9MgYRYEwEQYk2sAgkxEPLf/8t/xksW+Qc/+wSt1KR7dkQmpYoA
+      CPGRTMj87d/+L1YqaZKldb466okACPHw2WefI2WrqP42JFL8z7/5G375T/5MrAJdR6wCRd//
+      BSNmcIEjL/AUAAAAAElFTkSuQmCC
     </thumbnail>
   </thumbnails>
 </workbook>
