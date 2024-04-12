@@ -285,7 +285,13 @@ paper_total_waits = defaultdict(list)
 
 def avg_wait(raw_waits):
     waits = [w for i in raw_waits.values() for w in i]
-    return round(np.mean(waits), 1) if waits else 0
+    avg_wait_time = round(np.mean(waits), 1) if waits else 0
+    if avg_wait_time >= 60:
+            avg_wait_time = round(avg_wait_time / 60, 1)
+            wait_time_string = str(avg_wait_time) + 'm'
+    else:
+        wait_time_string = str(avg_wait_time) + 's'
+    return wait_time_string
 
 root = tk.Tk()
 # size 
@@ -375,12 +381,10 @@ class ClockAndData:
         self.canvas = canvas
         self.train = canvas.create_rectangle(self.x1, self.y1, self.x2, self.y2, fill="#fff")
         self.time = canvas.create_text(self.x1 + 10, self.y1 + 10, text = "Current Time = "+ get_current_time(time), anchor = tk.NW)
-        wait_time = avg_wait(total_waits)
-        if wait_time >= 60:
-            wait_time = round(wait_time / 60, 1)
-            wait_time_string = str(wait_time) + 'm'
-        else:
-            wait_time_string = str(wait_time) + 's'
+        
+        wait_time_string = avg_wait(total_waits)
+        
+            
         self.overall_avg_wait = canvas.create_text(self.x1 + 10, self.y1 + 35, text = "Avg. Wait Time = "+ wait_time_string, anchor = tk.NW)
         self.traffic = canvas.create_text(self.x1 + 10, self.y1 + 50, text = "Traffic Status = "+ check_traffic_status(get_current_time(time)), anchor = tk.NW)
         self.canvas.update()
@@ -390,12 +394,7 @@ class ClockAndData:
         self.canvas.delete(self.overall_avg_wait)
         self.canvas.delete(self.traffic)
 
-        wait_time = avg_wait(total_waits)
-        if wait_time >= 60:
-            wait_time = round(wait_time / 60, 1)
-            wait_time_string = str(wait_time) + 'm'
-        else:
-            wait_time_string = str(wait_time) + 's'
+        wait_time_string = avg_wait(total_waits)
             
         self.time = canvas.create_text(self.x1 + 10, self.y1 + 10, text = "Current Time = "+ get_current_time(time), anchor = tk.NW)
         self.overall_avg_wait = canvas.create_text(self.x1 + 10, self.y1 + 30, text = "Avg. Wait Time = "+ wait_time_string, anchor = tk.NW)
