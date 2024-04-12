@@ -317,7 +317,7 @@ canvas.pack(side=tk.TOP, expand = False)
 
 #plot
 f = plt.Figure(figsize=(2, 2), dpi=72)
-f.subplots_adjust(hspace=0.7, wspace=0.5)
+# f.subplots_adjust(hspace=0.5, wspace=0.5)
 a1 = f.add_subplot(222)
 a1.plot()
 a2 = f.add_subplot(224)
@@ -445,8 +445,8 @@ class ClockAndData:
         a3.set_xlabel("Time")
         a3.set_ylabel("Avg. Wait Time (seconds)")
 
-        a3.step([ t for (t, moving_avg) in moving_average_rfid.items() ], [ moving_avg for (t, moving_avg) in moving_average_rfid.items() ], label='RFID Moving Average')
-        a3.step([ t for (t, moving_avg) in moving_average_paper.items() ], [ moving_avg for (t, moving_avg) in moving_average_paper.items() ], label='PAPER Moving Average')
+        a3.step([ t for (t, moving_avg) in moving_average_rfid.items() ], [ moving_avg for (t, moving_avg) in moving_average_rfid.items() ], label='RFID')
+        a3.step([ t for (t, moving_avg) in moving_average_paper.items() ], [ moving_avg for (t, moving_avg) in moving_average_paper.items() ], label='PAPER')
 
         a3.legend()
 
@@ -475,7 +475,7 @@ def create_clock(env):
     """
     
     while True:
-        yield env.timeout(50)
+        yield env.timeout(70)
         clock.tick(env.now)
         
 
