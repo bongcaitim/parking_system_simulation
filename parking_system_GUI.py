@@ -301,13 +301,13 @@ root.geometry('1500x800+10+0')
 # tilte 
 root.title('MÔ PHỎNG VÀ TỐI ƯU HÓA BÃI ĐỖ XE TRƯỜNG ĐẠI HỌC') 
 #icon
-root.iconbitmap(r'anh\due.ico')
+root.iconbitmap(r'images\due.ico')
 #background
 root.configure(bg='#fff')
 #label
 top_frame = tk.Frame(root)
 top_frame.pack(side=tk.TOP, expand = False)
-label = Label(root,text="MÔ PHỎNG VÀ TỐI ƯU HÓA BÃI ĐỖ XE TRƯỜNG ĐẠI HỌC", font =('Arial',26),bg='black',fg='white', height=2)
+label = Label(root,text="MÔ PHỎNG VÀ PHÂN TÍCH HỆ THỐNG KIỂM VÉ BÃI ĐỖ XE", font =('Arial',26),bg='#223442',fg='white', height=2)
 label.pack(side=TOP, fill=X, expand=False)
 #canvas
 canvas_width = 1450
@@ -370,8 +370,8 @@ class QueueGraphics:
 def graphic_gates(canvas, x_top, y_top):
     
     # Position the RFID gate above the PAPER gate
-    graphic_rfid_gates = QueueGraphics(r"E:\COLLEGE\DA w Python\parking_system_simulation\anh\xe xanh.png", 70, r'anh\cong xanh.png', RFID_GATE_LINES, canvas, x_top, y_top)
-    graphic_paper_gates = QueueGraphics(r"E:\COLLEGE\DA w Python\parking_system_simulation\anh\xe cam.png", 70, r'anh\cong cam.png', PAPER_GATE_LINES, canvas, x_top, y_top + 120)
+    graphic_rfid_gates = QueueGraphics(r"E:\COLLEGE\DA w Python\parking_system_simulation\images\xe xanh.png", 70, r'images\cong xanh.png', RFID_GATE_LINES, canvas, x_top, y_top)
+    graphic_paper_gates = QueueGraphics(r"E:\COLLEGE\DA w Python\parking_system_simulation\images\xe cam.png", 70, r'images\cong cam.png', PAPER_GATE_LINES, canvas, x_top, y_top + 120)
 
     return graphic_rfid_gates, graphic_paper_gates
 
