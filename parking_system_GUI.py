@@ -379,13 +379,13 @@ class ClockAndData:
             wait_time_string = str(wait_time) + 'm'
         else:
             wait_time_string = str(wait_time) + 's'
-        self.seller_wait = canvas.create_text(self.x1 + 10, self.y1 + 35, text = "Avg. Wait Time = "+ wait_time_string, anchor = tk.NW)
+        self.overall_avg_wait = canvas.create_text(self.x1 + 10, self.y1 + 35, text = "Avg. Wait Time = "+ wait_time_string, anchor = tk.NW)
         self.traffic = canvas.create_text(self.x1 + 10, self.y1 + 50, text = "Traffic Status = "+ check_traffic_status(get_current_time(time)), anchor = tk.NW)
         self.canvas.update()
 
     def tick(self, time):
         self.canvas.delete(self.time)
-        self.canvas.delete(self.seller_wait)
+        self.canvas.delete(self.overall_avg_wait)
         self.canvas.delete(self.traffic)
 
         wait_time = avg_wait(total_waits)
@@ -396,7 +396,7 @@ class ClockAndData:
             wait_time_string = str(wait_time) + 's'
             
         self.time = canvas.create_text(self.x1 + 10, self.y1 + 10, text = "Current Time = "+ get_current_time(time), anchor = tk.NW)
-        self.seller_wait = canvas.create_text(self.x1 + 10, self.y1 + 30, text = "Avg. Wait Time = "+ wait_time_string, anchor = tk.NW)
+        self.overall_avg_wait = canvas.create_text(self.x1 + 10, self.y1 + 30, text = "Avg. Wait Time = "+ wait_time_string, anchor = tk.NW)
         self.traffic = canvas.create_text(self.x1 + 10, self.y1 + 50, text = "Traffic Status = "+ check_traffic_status(get_current_time(time)), anchor = tk.NW)
         
         a1.cla()
