@@ -303,7 +303,9 @@ top_frame.pack(side=tk.TOP, expand = False)
 label = Label(root,text="MÔ PHỎNG VÀ TỐI ƯU HÓA BÃI ĐỖ XE TRƯỜNG ĐẠI HỌC", font =('Arial',26),bg='black',fg='white', height=2)
 label.pack(side=TOP, fill=X, expand=False)
 #canvas
-canvas = tk.Canvas(root, width = 1450, height = 270, bg = "white")
+canvas_width = 1450
+canvas_height = 400
+canvas = tk.Canvas(root, width = canvas_width, height = canvas_height, bg = "white")
 canvas.pack(side=tk.TOP, expand = False)
 
 #plot
@@ -416,7 +418,17 @@ class ClockAndData:
         self.canvas.update()
         
 graphic_rfid_gates, graphic_paper_gates = graphic_gates(canvas, 340, 15)
-clock = ClockAndData(canvas, 1250, 180, 1440, 260, 0)
+
+clock_and_data_width = 190
+clock_and_data_height = 80
+x1 = (canvas_width / 2) - (clock_and_data_width / 2)
+y1 = canvas_height - clock_and_data_height - 10
+
+clock = ClockAndData(canvas, 
+                     x1=x1, y1=y1, 
+                     x2=x1+clock_and_data_width, 
+                     y2=y1+clock_and_data_height, 
+                     time=0)
 env = simpy.Environment()
 
 def create_clock(env):
