@@ -48,6 +48,12 @@ ERROR_RATE_PAPER = 0.035
 # Creating the 'anh' directory if it doesn't exist
 os.makedirs('anh', exist_ok=True)
 
+
+arrivals = defaultdict(lambda: 0)
+total_waits = defaultdict(list)
+rfid_total_waits = defaultdict(list)
+paper_total_waits = defaultdict(list)
+
 def get_current_time(elapsed_seconds):
     start_time = datetime.strptime('06:30:00', '%H:%M:%S')
     current_time = start_time + timedelta(seconds=elapsed_seconds)
@@ -177,8 +183,6 @@ def logging_events(person, card_type, gate_line, traffic_status, queue_begin, qu
             rfid_total_waits[int(wait_end_mark)].append(wait)
     else:
         paper_total_waits[int(wait_end_mark)].append(wait)
-    
-
 
 # QUÁ TRÌNH TẠO PHƯƠNG TIỆN ĐẾN
 def vehicle_arrival(env, rfid_gate_lines, paper_gate_lines):
@@ -277,10 +281,7 @@ def using_gate(env, person_id, gate_lines, card_type, traffic_status):
         
 
 
-arrivals = defaultdict(lambda: 0)
-total_waits = defaultdict(list)
-rfid_total_waits = defaultdict(list)
-paper_total_waits = defaultdict(list)
+
 
 
 def avg_wait(raw_waits):
@@ -316,11 +317,14 @@ canvas.pack(side=tk.TOP, expand = False)
 
 #plot
 f = plt.Figure(figsize=(2, 2), dpi=72)
-
+f.subplots_adjust(hspace=0.7, wspace=0.5)
 a1 = f.add_subplot(222)
 a1.plot()
-a2 = f.add_subplot(221)
+a2 = f.add_subplot(224)
 a2.plot()
+a3 = f.add_subplot(121)
+a3.plot()
+
 
 data_plot = FigureCanvasTkAgg(f, master=root)
 data_plot.get_tk_widget().config(height = 400)
@@ -401,18 +405,52 @@ class ClockAndData:
         self.traffic = canvas.create_text(self.x1 + 10, self.y1 + 50, text = "Traffic Status = "+ check_traffic_status(get_current_time(time)), anchor = tk.NW)
         
         a1.cla()
-        a1.set_title("RFID")
-        a1.set_xlabel(f"Time\nAvg. wait time: {avg_wait(rfid_total_waits)}")
+        a1.set_title(f"RFID | Avg. wait time: {avg_wait(rfid_total_waits)}")
         a1.set_ylabel("Avg. Wait Time (seconds)")
         a1.step([ t for (t, waits) in rfid_total_waits.items() ], [ np.mean(waits) for (t, waits) in rfid_total_waits.items() ])
         
         
         a2.cla()
-        a2.set_title("PAPER")
+        a2.set_title(f"PAPER | Avg. wait time: {avg_wait(paper_total_waits)}")
         a2.set_xlabel("Time")
-        a2.set_xlabel(f"Time\nAvg. wait time: {avg_wait(paper_total_waits)}")
         a2.step([ t for (t, waits) in paper_total_waits.items() ], [ np.mean(waits) for (t, waits) in paper_total_waits.items() ])
         
+
+        from collections import OrderedDict
+        def moving_average(totals_dict, step):
+            mean_waits_dict = {}
+            moving_averages = {}
+            for key, waits in totals_dict.items():
+                if len(waits) == 0:
+                    key_mean = 0
+                else:
+                    key_mean = np.mean(waits)
+                mean_waits_dict[key] = key_mean
+            for i, key in enumerate(mean_waits_dict.keys()):
+                if i >= step - 1:
+                    window = list(mean_waits_dict.values())[i - step + 1:i + 1]
+                    moving_averages[key] = np.mean(window)
+            for key in totals_dict.keys():
+                if key not in moving_averages:
+                    moving_averages[key] = 0
+            moving_averages_sorted = OrderedDict(sorted(moving_averages.items()))
+            return moving_averages_sorted
+
+        step = 3
+        moving_average_rfid = moving_average(rfid_total_waits, step=step)
+        moving_average_paper = moving_average(paper_total_waits, step=step)
+
+        a3.cla()
+        a3.set_title(f"Moving Average Comparison, step={step}")
+        a3.set_xlabel("Time")
+        a3.set_ylabel("Avg. Wait Time (seconds)")
+
+        a3.step([ t for (t, moving_avg) in moving_average_rfid.items() ], [ moving_avg for (t, moving_avg) in moving_average_rfid.items() ], label='RFID Moving Average')
+        a3.step([ t for (t, moving_avg) in moving_average_paper.items() ], [ moving_avg for (t, moving_avg) in moving_average_paper.items() ], label='PAPER Moving Average')
+
+        a3.legend()
+
+
         data_plot.draw()
         self.canvas.update()
         
@@ -439,6 +477,8 @@ def create_clock(env):
     while True:
         yield env.timeout(50)
         clock.tick(env.now)
+        
+
         
         
 env = simpy.Environment()
