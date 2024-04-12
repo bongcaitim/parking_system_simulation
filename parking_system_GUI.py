@@ -29,15 +29,15 @@ RFID_EMPS_PER_LINE = 0.5
 ######################
 RFID_SELECTION_RATE = 0.7
 
-RFID_SCAN_TIME_MIN = 5
-RFID_SCAN_TIME_MAX = 12
+RFID_SCAN_TIME_MIN = 9
+RFID_SCAN_TIME_MAX = 13
 PAPER_SCAN_TIME_MIN = 10
 PAPER_SCAN_TIME_MAX = 17
 
-JOIN_RATE_HIGH_MEAN = 2
-JOIN_RATE_HIGH_STD = 0.05
+JOIN_RATE_HIGH_MEAN = 3
+JOIN_RATE_HIGH_STD = 0.5
 
-JOIN_RATE_AVG_MEAN = 8
+JOIN_RATE_AVG_MEAN = 15
 JOIN_RATE_AVG_STD = 1
 
 JOIN_RATE_LOW_MEAN = 60
@@ -436,7 +436,7 @@ class ClockAndData:
             moving_averages_sorted = OrderedDict(sorted(moving_averages.items()))
             return moving_averages_sorted
 
-        step = 3
+        step = 10
         moving_average_rfid = moving_average(rfid_total_waits, step=step)
         moving_average_paper = moving_average(paper_total_waits, step=step)
 
