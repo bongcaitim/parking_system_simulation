@@ -402,7 +402,7 @@ class ClockAndData:
         
         a1.cla()
         a1.set_title("RFID")
-        a1.set_xlabel("Time")
+        a1.set_xlabel(f"Time\nAvg. wait time: {avg_wait(rfid_total_waits)}")
         a1.set_ylabel("Avg. Wait Time (seconds)")
         a1.step([ t for (t, waits) in rfid_total_waits.items() ], [ np.mean(waits) for (t, waits) in rfid_total_waits.items() ])
         
@@ -410,7 +410,7 @@ class ClockAndData:
         a2.cla()
         a2.set_title("PAPER")
         a2.set_xlabel("Time")
-        a2.set_ylabel("Avg. Wait Time (seconds)")
+        a2.set_xlabel(f"Time\nAvg. wait time: {avg_wait(paper_total_waits)}")
         a2.step([ t for (t, waits) in paper_total_waits.items() ], [ np.mean(waits) for (t, waits) in paper_total_waits.items() ])
         
         data_plot.draw()
