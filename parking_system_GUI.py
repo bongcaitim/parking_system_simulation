@@ -18,7 +18,7 @@ import os
 ######################
 ##### INPUTS #########
 ######################
-RFID_GATE_LINES = 2
+RFID_GATE_LINES = 3
 PAPER_GATE_LINES = 2
 
 PAPER_EMPS_PER_LINE = 1
@@ -45,8 +45,8 @@ JOIN_RATE_LOW_STD = 10
 
 ERROR_RATE_RFID = 0.01
 ERROR_RATE_PAPER = 0.035
-# Creating the 'anh' directory if it doesn't exist
-os.makedirs('anh', exist_ok=True)
+# Creating the 'images' directory if it doesn't exist
+os.makedirs('images', exist_ok=True)
 
 
 arrivals = defaultdict(lambda: 0)
@@ -281,9 +281,6 @@ def using_gate(env, person_id, gate_lines, card_type, traffic_status):
         
 
 
-
-
-
 def avg_wait(raw_waits):
     waits = [w for i in raw_waits.values() for w in i]
     avg_wait_time = round(np.mean(waits), 1) if waits else 0
@@ -334,7 +331,7 @@ class QueueGraphics:
     text_height = 50
     icon_top_margin = 5
     
-    def __init__(self, icon_file, icon_width, queue_image_file, num_lines, canvas, x_top, y_top):
+    def __init__(self, icon_file, icon_width, queue_image_file, num_lines, canvas, x_top, y_top, emp_icon_file,num_emps):
         self.icon_file = icon_file
         self.icon_width = icon_width
         self.queue_image_file = queue_image_file
@@ -342,20 +339,30 @@ class QueueGraphics:
         self.canvas = canvas
         self.x_top = x_top
         self.y_top = y_top
+        self.emp_icon_file = emp_icon_file
+        self.num_emps = num_emps
+        self.rectangles = []
 
         # Load queue image
         self.queue_image = tk.PhotoImage(file=self.queue_image_file)
         self.icon_image = tk.PhotoImage(file=self.icon_file)
+        self.emp_icon_image = tk.PhotoImage(file=self.emp_icon_file)
         self.icons = defaultdict(lambda: [])
+        
         for i in range(num_lines):
             # Create queue image
-            canvas.create_image(x_top, y_top + (i * self.text_height), anchor=tk.NW, image=self.queue_image)
+            canvas.create_image(x_top, y_top + (i * 1.25 * self.text_height), anchor=tk.NW, image=self.queue_image)
+        self.canvas.update()
+        
+        for i in range(num_emps):
+            # Create person image
+            canvas.create_image(x_top - 35, y_top + (i * 1.25 * self.text_height), anchor=tk.NW, image=self.emp_icon_image)
         self.canvas.update()
 
     def add_to_line(self, gate_line):
         count = len(self.icons[gate_line])
         x = self.x_top + 100 + (count * self.icon_width)
-        y = self.y_top + ((gate_line - 1) * self.text_height) + self.icon_top_margin
+        y = self.y_top + ((gate_line - 1) * 1.25 * self.text_height) + self.icon_top_margin
         self.icons[gate_line].append(
                 self.canvas.create_image(x, y, anchor=tk.NW, image=self.icon_image)
         )
@@ -368,10 +375,12 @@ class QueueGraphics:
         self.canvas.update()
 
 def graphic_gates(canvas, x_top, y_top):
+    rfid_emp_num = int(round(RFID_GATE_LINES * RFID_EMPS_PER_LINE, 0))
+    paper_emp_num =  int(round(PAPER_GATE_LINES * PAPER_EMPS_PER_LINE, 0))
     
     # Position the RFID gate above the PAPER gate
-    graphic_rfid_gates = QueueGraphics(r"E:\COLLEGE\DA w Python\parking_system_simulation\images\xe xanh.png", 70, r'images\cong xanh.png', RFID_GATE_LINES, canvas, x_top, y_top)
-    graphic_paper_gates = QueueGraphics(r"E:\COLLEGE\DA w Python\parking_system_simulation\images\xe cam.png", 70, r'images\cong cam.png', PAPER_GATE_LINES, canvas, x_top, y_top + 120)
+    graphic_rfid_gates = QueueGraphics(r"images\xe xanh.png", 70, r'images\cong xanh.png', RFID_GATE_LINES, canvas, x_top, y_top, r'images\nguoi xanh.png',rfid_emp_num)
+    graphic_paper_gates = QueueGraphics(r"images\xe cam.png", 70, r'images\cong cam.png', PAPER_GATE_LINES, canvas, x_top, y_top * RFID_GATE_LINES * 7.5, r'images\nguoi cam.png',paper_emp_num)
 
     return graphic_rfid_gates, graphic_paper_gates
 
@@ -383,14 +392,16 @@ class ClockAndData:
         self.x2 = x2
         self.y2 = y2
         self.canvas = canvas
-        self.train = canvas.create_rectangle(self.x1, self.y1, self.x2, self.y2, fill="#fff")
-        self.time = canvas.create_text(self.x1 + 10, self.y1 + 10, text = "Current Time = "+ get_current_time(time), anchor = tk.NW)
+        # self.train = canvas.create_rectangle(self.x1, self.y1, self.x2, self.y2, fill="#fff")
+        self.time = canvas.create_text(self.x1 + 10, self.y1, text = "Current Time = "+ get_current_time(time), anchor = tk.NW, font=('Helvetica', 15), fill='#000080')
         
         wait_time_string = avg_wait(total_waits)
+        self.overall_avg_wait = canvas.create_text(self.x1 + 10, self.y1 + 35, text = "Avg. Wait Time = "+ wait_time_string, anchor = tk.NW, font=('Helvetica', 12), fill='#000080')
+        traffic_status = check_traffic_status(get_current_time(time))
         
-            
-        self.overall_avg_wait = canvas.create_text(self.x1 + 10, self.y1 + 35, text = "Avg. Wait Time = "+ wait_time_string, anchor = tk.NW)
-        self.traffic = canvas.create_text(self.x1 + 10, self.y1 + 50, text = "Traffic Status = "+ check_traffic_status(get_current_time(time)), anchor = tk.NW)
+        traffic_status_color = {'high': 'red', 'avg': 'orange', 'low': 'blue'}
+        self.traffic = canvas.create_text(self.x1 + 10, self.y1 + 68, text = "Traffic Status = "+ traffic_status, anchor = tk.NW, fill=traffic_status_color[traffic_status])
+        self.traffic_rectangle = canvas.create_rectangle(self.x1 + 10, self.y1 + 100, self.x2-70, self.y2+15, fill=traffic_status_color[traffic_status], outline='')
         self.canvas.update()
 
     def tick(self, time):
@@ -399,21 +410,24 @@ class ClockAndData:
         self.canvas.delete(self.traffic)
 
         wait_time_string = avg_wait(total_waits)
-            
-        self.time = canvas.create_text(self.x1 + 10, self.y1 + 10, text = "Current Time = "+ get_current_time(time), anchor = tk.NW)
-        self.overall_avg_wait = canvas.create_text(self.x1 + 10, self.y1 + 30, text = "Avg. Wait Time = "+ wait_time_string, anchor = tk.NW)
-        self.traffic = canvas.create_text(self.x1 + 10, self.y1 + 50, text = "Traffic Status = "+ check_traffic_status(get_current_time(time)), anchor = tk.NW)
+        self.time = canvas.create_text(self.x1 + 10, self.y1, text = "Current Time = "+ get_current_time(time), anchor = tk.NW, font=('Helvetica', 15), fill='#000080')
+        self.overall_avg_wait = canvas.create_text(self.x1 + 10, self.y1 + 30, text = "Avg. Wait Time = "+ wait_time_string, anchor = tk.NW, font=('Helvetica', 12), fill='#000080')
+        
+        traffic_status = check_traffic_status(get_current_time(time))
+        traffic_status_color = {'high': 'red', 'avg': 'orange', 'low': 'blue'}
+        self.traffic = canvas.create_text(self.x1 + 10, self.y1 + 68, text = "Traffic Status = "+ traffic_status, anchor = tk.NW, fill=traffic_status_color[traffic_status])
+        self.traffic_rectangle = canvas.create_rectangle(self.x1 + 10, self.y1 + 100, self.x2-70, self.y2+15, fill=traffic_status_color[traffic_status], outline='')
         
         a1.cla()
         a1.set_title(f"RFID | Avg. wait time: {avg_wait(rfid_total_waits)}")
         a1.set_ylabel("Avg. Wait Time (seconds)")
-        a1.step([ t for (t, waits) in rfid_total_waits.items() ], [ np.mean(waits) for (t, waits) in rfid_total_waits.items() ])
+        a1.step([ t for (t, waits) in rfid_total_waits.items() ], [ np.mean(waits) for (t, waits) in rfid_total_waits.items() ], color='#4A9658')
         
         
         a2.cla()
         a2.set_title(f"PAPER | Avg. wait time: {avg_wait(paper_total_waits)}")
         a2.set_xlabel("Time")
-        a2.step([ t for (t, waits) in paper_total_waits.items() ], [ np.mean(waits) for (t, waits) in paper_total_waits.items() ])
+        a2.step([ t for (t, waits) in paper_total_waits.items() ], [ np.mean(waits) for (t, waits) in paper_total_waits.items() ], color='#FF914C')
         
 
         from collections import OrderedDict
@@ -445,8 +459,8 @@ class ClockAndData:
         a3.set_xlabel("Time")
         a3.set_ylabel("Avg. Wait Time (seconds)")
 
-        a3.step([ t for (t, moving_avg) in moving_average_rfid.items() ], [ moving_avg for (t, moving_avg) in moving_average_rfid.items() ], label='RFID')
-        a3.step([ t for (t, moving_avg) in moving_average_paper.items() ], [ moving_avg for (t, moving_avg) in moving_average_paper.items() ], label='PAPER')
+        a3.step([ t for (t, moving_avg) in moving_average_rfid.items() ], [ moving_avg for (t, moving_avg) in moving_average_rfid.items() ], label='RFID', color='#4A9658')
+        a3.step([ t for (t, moving_avg) in moving_average_paper.items() ], [ moving_avg for (t, moving_avg) in moving_average_paper.items() ], label='PAPER', color='#FF914C')
 
         a3.legend()
 
@@ -454,12 +468,12 @@ class ClockAndData:
         data_plot.draw()
         self.canvas.update()
         
-graphic_rfid_gates, graphic_paper_gates = graphic_gates(canvas, 340, 15)
+graphic_rfid_gates, graphic_paper_gates = graphic_gates(canvas, 340, 10)
 
 clock_and_data_width = 190
-clock_and_data_height = 80
-x1 = (canvas_width / 2) - (clock_and_data_width / 2)
-y1 = canvas_height - clock_and_data_height - 10
+clock_and_data_height = 70
+x1 = 10
+y1 = (canvas_height / 2) - (clock_and_data_height / 2)
 
 clock = ClockAndData(canvas, 
                      x1=x1, y1=y1, 
@@ -475,7 +489,7 @@ def create_clock(env):
     """
     
     while True:
-        yield env.timeout(70)
+        yield env.timeout(100)
         clock.tick(env.now)
         
 
@@ -501,7 +515,7 @@ root.mainloop()
 
 
 # Writing data to a JSON file
-with open('anh/events.json', 'w') as outfile:
+with open('output\GUI_events.json', 'w') as outfile:
     # input_string = f"""RFID Gates: {RFID_GATE_LINES} | Paper Gates: {PAPER_GATE_LINES} || Paper Employees per Line: {PAPER_EMPS_PER_LINE} | RFID Employees per Line: {RFID_EMPS_PER_LINE}"""
     # config_string = f"""RFID Selection Rate: {RFID_SELECTION_RATE} || RFID Scan Time (Min): {RFID_SCAN_TIME_MIN}| RFID Scan Time (Max): {RFID_SCAN_TIME_MAX} || Paper Scan Time (Min): {PAPER_SCAN_TIME_MIN}| Paper Scan Time (Max): {PAPER_SCAN_TIME_MAX} || Join Rate High Mean: {JOIN_RATE_HIGH_MEAN}| Join Rate High Std: {JOIN_RATE_HIGH_STD} || Join Rate Avg Mean: {JOIN_RATE_AVG_MEAN}| Join Rate Avg Std: {JOIN_RATE_AVG_STD} || Join Rate Low Mean: {JOIN_RATE_LOW_MEAN}| Join Rate Low Std: {JOIN_RATE_LOW_STD} || Error Rate RFID: {ERROR_RATE_RFID}| Error Rate Paper: {ERROR_RATE_PAPER}"""
     json.dump({"RFID GATES": RFID_GATE_LINES, 
