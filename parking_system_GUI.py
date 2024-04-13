@@ -18,8 +18,8 @@ import os
 ######################
 ##### INPUTS #########
 ######################
-RFID_GATE_LINES = 3
-PAPER_GATE_LINES = 1
+RFID_GATE_LINES = 2
+PAPER_GATE_LINES = 2
 
 PAPER_EMPS_PER_LINE = 1
 RFID_EMPS_PER_LINE = 0.5
@@ -37,7 +37,7 @@ PAPER_SCAN_TIME_MAX = 17
 JOIN_RATE_HIGH_MEAN = 3
 JOIN_RATE_HIGH_STD = 0.5
 
-JOIN_RATE_AVG_MEAN = 15
+JOIN_RATE_AVG_MEAN = 30
 JOIN_RATE_AVG_STD = 1
 
 JOIN_RATE_LOW_MEAN = 60
@@ -279,16 +279,21 @@ def using_gate(env, person_id, gate_lines, card_type, traffic_status):
     # LƯU CÁC SỰ KIỆN    
         logging_events(person_id, card_type, non_zero_gate_idx, traffic_status, queue_begin, queue_end, scan_begin, scan_end, error_appearance, correction_begin, error_correction_time, correction_end)
         
-
+def seconds_to_minutes_string(seconds):
+    if math.isnan(seconds):
+        return 0
+    if seconds >= 60:
+        minutes = int(round(seconds / 60, 0))
+        time_str = str(minutes) + 'm'
+    else:
+        seconds = int(round(seconds, 0))
+        time_str = str(seconds) + 's'
+    return time_str
 
 def avg_wait(raw_waits):
     waits = [w for i in raw_waits.values() for w in i]
     avg_wait_time = round(np.mean(waits), 1) if waits else 0
-    if avg_wait_time >= 60:
-            avg_wait_time = round(avg_wait_time / 60, 1)
-            wait_time_string = str(avg_wait_time) + 'm'
-    else:
-        wait_time_string = str(avg_wait_time) + 's'
+    wait_time_string = seconds_to_minutes_string(avg_wait_time)
     return wait_time_string
 
 root = tk.Tk()
@@ -449,13 +454,18 @@ class ClockAndData:
                     moving_averages[key] = 0
             moving_averages_sorted = OrderedDict(sorted(moving_averages.items()))
             return moving_averages_sorted
+        
 
         step = 10
         moving_average_rfid = moving_average(rfid_total_waits, step=step)
         moving_average_paper = moving_average(paper_total_waits, step=step)
 
+
         a3.cla()
-        a3.set_title(f"Moving Average Comparison, step={step}")
+        current_moving_avg_rfid = list(moving_average_rfid.values())[-1] if moving_average_rfid else 0
+        current_moving_avg_paper = list(moving_average_paper.values())[-1] if moving_average_paper else 0
+
+        a3.set_title(f"Moving Average, step={step}\nRFID: {seconds_to_minutes_string(current_moving_avg_rfid)}\nPAPER: {seconds_to_minutes_string(current_moving_avg_paper)}")
         a3.set_xlabel("Time")
         a3.set_ylabel("Avg. Wait Time (seconds)")
 
