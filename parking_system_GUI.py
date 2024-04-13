@@ -19,7 +19,7 @@ import os
 ##### INPUTS #########
 ######################
 RFID_GATE_LINES = 3
-PAPER_GATE_LINES = 2
+PAPER_GATE_LINES = 1
 
 PAPER_EMPS_PER_LINE = 1
 RFID_EMPS_PER_LINE = 0.5
