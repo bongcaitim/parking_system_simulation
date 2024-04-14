@@ -18,7 +18,7 @@ import os
 ######################
 ##### INPUTS #########
 ######################
-RFID_GATE_LINES = 2
+RFID_GATE_LINES = 3
 PAPER_GATE_LINES = 2
 
 PAPER_EMPS_PER_LINE = 1
@@ -425,7 +425,7 @@ class ClockAndData:
         
         a1.cla()
         a1.set_title(f"RFID | Avg. wait time: {avg_wait(rfid_total_waits)}")
-        a1.set_ylabel("Avg. Wait Time (seconds)")
+        a1.set_ylabel("Wait Time (seconds)")
         a1.step([ t for (t, waits) in rfid_total_waits.items() ], [ np.mean(waits) for (t, waits) in rfid_total_waits.items() ], color='#4A9658')
         
         
