@@ -96,7 +96,7 @@ def generate_arrival_time(env):
     current_time = get_current_time(env.now)
     traffic_status = check_traffic_status(current_time)
     if traffic_status == 'high':
-        arrival_time = max(0, random.normalvariate(JOIN_RATE_HIGH_MEAN, JOIN_RATE_HIGH_MEAN))
+        arrival_time = max(0, random.normalvariate(JOIN_RATE_HIGH_MEAN, JOIN_RATE_HIGH_STD))
     elif traffic_status == 'low':
         arrival_time = max(0, random.normalvariate(JOIN_RATE_LOW_MEAN, JOIN_RATE_LOW_STD))
     else: # NORMAL
@@ -497,9 +497,10 @@ def create_clock(env):
         This generator is meant to be used as a SimPy event to update the clock
         and the data in the UI
     """
+    secs_passed_in_sim_per_real_sec = int(input('Seconds passed in simulation per real second: '))
     
     while True:
-        yield env.timeout(100)
+        yield env.timeout(secs_passed_in_sim_per_real_sec)
         clock.tick(env.now)
         
 
@@ -507,8 +508,8 @@ def create_clock(env):
         
 env = simpy.Environment()
 
-rfid_gate_lines = [simpy.Resource(env, capacity=RFID_EMPS_PER_LINE) for _ in range(RFID_GATE_LINES)]
-paper_gate_lines = [simpy.Resource(env, capacity=PAPER_EMPS_PER_LINE) for _ in range(PAPER_GATE_LINES)]
+rfid_gate_lines = [simpy.Resource(env, capacity=1) for _ in range(RFID_GATE_LINES)]
+paper_gate_lines = [simpy.Resource(env, capacity=1) for _ in range(PAPER_GATE_LINES)]
 all_gate_lines = [rfid_gate_lines, paper_gate_lines]
 
 
