@@ -18,7 +18,7 @@ import os
 ######################
 ##### INPUTS #########
 ######################
-RFID_GATE_LINES = 3
+RFID_GATE_LINES = 2
 PAPER_GATE_LINES = 2
 
 PAPER_EMPS_PER_LINE = 1
@@ -27,7 +27,7 @@ RFID_EMPS_PER_LINE = 0.5
 ######################
 ### CONFIGURATIONS ###
 ######################
-RFID_SELECTION_RATE = 0.7
+RFID_SELECTION_RATE = 0.6
 
 RFID_SCAN_TIME_MIN = 9
 RFID_SCAN_TIME_MAX = 13
@@ -48,20 +48,22 @@ ERROR_RATE_PAPER = 0.035
 # Creating the 'images' directory if it doesn't exist
 os.makedirs('images', exist_ok=True)
 
-
-arrivals = defaultdict(lambda: 0)
+# Khởi tạo dictionary chứa list tổng thời gian chờ tại mỗi giây diễn ra trong giả lập của tất cả các loại cổng
 total_waits = defaultdict(list)
+# Khởi tạo dictionary chứa list tổng thời gian chờ tại mỗi giây diễn ra trong giả lập của cổng thẻ từ
 rfid_total_waits = defaultdict(list)
+# Khởi tạo dictionary chứa list tổng thời gian chờ tại mỗi giây diễn ra trong giả lập của cổng thẻ giấy
 paper_total_waits = defaultdict(list)
 
+# Hàm xác định thời điểm (giờ:phút:giây) hiện tại dựa trên số giây đã trôi qua trong giả lập
 def get_current_time(elapsed_seconds):
     start_time = datetime.strptime('06:30:00', '%H:%M:%S')
     current_time = start_time + timedelta(seconds=elapsed_seconds)
     formatted_current_time = current_time.strftime('%H:%M:%S')
     return formatted_current_time
 
+# Xác định trạng thái giao thông dựa trên thời điểm hiện tại
 def check_traffic_status(current_time):
-
     if current_time < "08:30:00":
         return "low"
     elif "08:30:00" <= current_time < "09:30:00":
@@ -85,13 +87,14 @@ def check_traffic_status(current_time):
     else:
         return "low"
     
+# Sinh thời gian quét thẻ dựa trên mỗi loại cổng
 def generate_scan_time(card_type):
     if card_type == 'RFID':
         return random.uniform(RFID_SCAN_TIME_MIN, RFID_SCAN_TIME_MAX)
     elif card_type == 'paper':
         return random.uniform(PAPER_SCAN_TIME_MIN, PAPER_SCAN_TIME_MAX)
     
-
+# Sinh thời gian xe đến dựa vào tình trạng giao thông hiện tại
 def generate_arrival_time(env):
     current_time = get_current_time(env.now)
     traffic_status = check_traffic_status(current_time)
@@ -103,7 +106,7 @@ def generate_arrival_time(env):
         arrival_time = max(0, random.normalvariate(JOIN_RATE_AVG_MEAN, JOIN_RATE_AVG_STD))        
     return arrival_time, traffic_status
 
-    
+# Sinh thời gian cần thiết để sửa lỗi nếu phát sinh dựa trên loại thẻ
 def generate_error_correction_time(card_type):
     if card_type == 'RFID':
         if RFID_EMPS_PER_LINE == 1:
@@ -117,6 +120,7 @@ def generate_error_correction_time(card_type):
         
     return ERROR_CORRECTION_TIME
 
+# Tạo list rỗng để chứa các ghi nhận event
 event_log = []
 
 # Hàm sinh trường hợp lỗi của mỗi loại thẻ dựa trên xác suất
@@ -279,6 +283,9 @@ def using_gate(env, person_id, gate_lines, card_type, traffic_status):
     # LƯU CÁC SỰ KIỆN    
         logging_events(person_id, card_type, non_zero_gate_idx, traffic_status, queue_begin, queue_end, scan_begin, scan_end, error_appearance, correction_begin, error_correction_time, correction_end)
         
+# Chuyển đổi giây thành phút với hậu tố là s nếu là giây và m nếu là phút
+# Nếu dưới 60s thì không chuyển thành phút và giữ nguyên hậu tố s
+# Nếu trên 60s thì chuyển thành phút và chuyển đổi thành hậu tố m
 def seconds_to_minutes_string(seconds):
     if math.isnan(seconds):
         return 0
@@ -290,6 +297,8 @@ def seconds_to_minutes_string(seconds):
         time_str = str(seconds) + 's'
     return time_str
 
+# Tính toán thời gian chờ trung bình của các phương tiện tại mỗi thời điểm trong giả lập
+# Mỗi thời điểm có một list thời gian chờ, do mỗi thời điểm có thể phát sinh nhiều phương tiện chờ
 def avg_wait(raw_waits):
     waits = [w for i in raw_waits.values() for w in i]
     avg_wait_time = round(np.mean(waits), 1) if waits else 0
@@ -332,29 +341,39 @@ data_plot = FigureCanvasTkAgg(f, master=root)
 data_plot.get_tk_widget().config(height = 400)
 data_plot.get_tk_widget().pack(side=tk.BOTTOM, fill=tk.BOTH, expand=True)
 
+# Tạo class cho các cổng chờ
 class QueueGraphics:
     text_height = 50
     icon_top_margin = 5
     
-    def __init__(self, icon_file, icon_width, queue_image_file, num_lines, canvas, x_top, y_top, emp_icon_file,num_emps):
-        self.icon_file = icon_file
+    def __init__(self, vehicle_file, icon_width, gate_image_file, gate_line_list, canvas, x_top, y_top, emp_icon_file,num_emps):
+        # File chứa icon xe 
+        self.vehicle_file = vehicle_file
+        # Chiều rộng icon
         self.icon_width = icon_width
-        self.queue_image_file = queue_image_file
-        self.num_lines = num_lines
+        # File chứa icon cổng 
+        self.gate_image_file = gate_image_file
+        # List các cổng của từng loại
+        self.gate_line_list = gate_line_list
+        # Những graphics này sẽ được hiển thị trên canvas cho việc trình bày giả lập các luồng xe
         self.canvas = canvas
+        # Tọa độ x trên cùng
         self.x_top = x_top
+        # Tọa độ y trên cùng
         self.y_top = y_top
+        # File chứa icon nhân viên
         self.emp_icon_file = emp_icon_file
+        # Số nhân viên
         self.num_emps = num_emps
         self.rectangles = []
 
-        # Load queue image
-        self.queue_image = tk.PhotoImage(file=self.queue_image_file)
-        self.icon_image = tk.PhotoImage(file=self.icon_file)
+        # Tải ảnh lên và lưu vào các biến tương ứng
+        self.queue_image = tk.PhotoImage(file=self.gate_image_file)
+        self.icon_image = tk.PhotoImage(file=self.vehicle_file)
         self.emp_icon_image = tk.PhotoImage(file=self.emp_icon_file)
         self.icons = defaultdict(lambda: [])
         
-        for i in range(num_lines):
+        for i in range(gate_line_list):
             # Create queue image
             canvas.create_image(x_top, y_top + (i * 1.25 * self.text_height), anchor=tk.NW, image=self.queue_image)
         self.canvas.update()
