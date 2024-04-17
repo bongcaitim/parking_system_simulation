@@ -346,11 +346,11 @@ class QueueGraphics:
     text_height = 50
     icon_top_margin = 5
     
-    def __init__(self, vehicle_file, icon_width, gate_image_file, gate_line_list, canvas, x_top, y_top, emp_icon_file,num_emps):
+    def __init__(self, vehicle_file, vehicle_icon_width, gate_image_file, gate_line_list, canvas, x_top, y_top, emp_icon_file,num_emps):
         # File chứa icon xe 
         self.vehicle_file = vehicle_file
         # Chiều rộng icon
-        self.icon_width = icon_width
+        self.vehicle_icon_width = vehicle_icon_width
         # File chứa icon cổng 
         self.gate_image_file = gate_image_file
         # List các cổng của từng loại
@@ -367,37 +367,41 @@ class QueueGraphics:
         self.num_emps = num_emps
         self.rectangles = []
 
-        # Tải ảnh lên và lưu vào các biến tương ứng
-        self.queue_image = tk.PhotoImage(file=self.gate_image_file)
-        self.icon_image = tk.PhotoImage(file=self.vehicle_file)
+        # Tải ảnh lên TK và lưu vào các biến tương ứng
+        self.gate_image = tk.PhotoImage(file=self.gate_image_file)
+        self.vehicle_image = tk.PhotoImage(file=self.vehicle_file)
         self.emp_icon_image = tk.PhotoImage(file=self.emp_icon_file)
-        self.icons = defaultdict(lambda: [])
+        # Tạo dictionary lưu các icon phương tiện của từng cổng
+        self.vehicle_icons = defaultdict(lambda: [])
         
+        # Tạo các hình ảnh cổng
         for i in range(gate_line_list):
-            # Create queue image
-            canvas.create_image(x_top, y_top + (i * 1.25 * self.text_height), anchor=tk.NW, image=self.queue_image)
+            canvas.create_image(x_top, y_top + (i * 1.25 * self.text_height), anchor=tk.NW, image=self.gate_image)
         self.canvas.update()
         
+        # Tạo các hình ảnh nhân viên
         for i in range(num_emps):
-            # Create person image
             canvas.create_image(x_top - 35, y_top + (i * 1.25 * self.text_height), anchor=tk.NW, image=self.emp_icon_image)
         self.canvas.update()
 
+    # Thêm icon xe máy vào hàng dựa trên chiều dài của hàng hiện tại
     def add_to_line(self, gate_line):
-        count = len(self.icons[gate_line])
-        x = self.x_top + 100 + (count * self.icon_width)
+        count = len(self.vehicle_icons[gate_line])
+        x = self.x_top + 100 + (count * self.vehicle_icon_width)
         y = self.y_top + ((gate_line - 1) * 1.25 * self.text_height) + self.icon_top_margin
-        self.icons[gate_line].append(
-                self.canvas.create_image(x, y, anchor=tk.NW, image=self.icon_image)
+        self.vehicle_icons[gate_line].append(
+                self.canvas.create_image(x, y, anchor=tk.NW, image=self.vehicle_image)
         )
         self.canvas.update()
-
+    
+    # Bỏ icon xe máy khỏi hàng
     def remove_from_line(self, gate_line):
-        if len(self.icons[gate_line]) == 0: return
-        to_del = self.icons[gate_line].pop()
+        if len(self.vehicle_icons[gate_line]) == 0: return
+        to_del = self.vehicle_icons[gate_line].pop()
         self.canvas.delete(to_del)
         self.canvas.update()
 
+# Tạo các cổng và số nhân viên tương ứng
 def graphic_gates(canvas, x_top, y_top):
     rfid_emp_num = int(round(RFID_GATE_LINES * RFID_EMPS_PER_LINE, 0))
     paper_emp_num =  int(round(PAPER_GATE_LINES * PAPER_EMPS_PER_LINE, 0))
@@ -409,51 +413,67 @@ def graphic_gates(canvas, x_top, y_top):
     return graphic_rfid_gates, graphic_paper_gates
 
 
+# Tạo class cho bảng thông tin chứa đồng hồ đếm giờ và thống kê thời gian chờ trung bình cho đến hiện tại trên UI
 class ClockAndData:
     def __init__(self, canvas, x1, y1, x2, y2, time):
+        # Khai báo tọa độ của bảng
         self.x1 = x1
         self.y1 = y1
         self.x2 = x2
         self.y2 = y2
         self.canvas = canvas
-        # self.train = canvas.create_rectangle(self.x1, self.y1, self.x2, self.y2, fill="#fff")
+        
+        # Display thời gian hiện tại lên bảng này
         self.time = canvas.create_text(self.x1 + 10, self.y1, text = "Current Time = "+ get_current_time(time), anchor = tk.NW, font=('Helvetica', 15), fill='#000080')
         
+        # Display thời gian chờ trung bình
         wait_time_string = avg_wait(total_waits)
         self.overall_avg_wait = canvas.create_text(self.x1 + 10, self.y1 + 35, text = "Avg. Wait Time = "+ wait_time_string, anchor = tk.NW, font=('Helvetica', 12), fill='#000080')
-        traffic_status = check_traffic_status(get_current_time(time))
         
+        # Display tình trạng giao thông và đổi màu tương sng
+        traffic_status = check_traffic_status(get_current_time(time))
         traffic_status_color = {'high': 'red', 'avg': 'orange', 'low': 'blue'}
         self.traffic = canvas.create_text(self.x1 + 10, self.y1 + 68, text = "Traffic Status = "+ traffic_status, anchor = tk.NW, fill=traffic_status_color[traffic_status])
         self.traffic_rectangle = canvas.create_rectangle(self.x1 + 10, self.y1 + 100, self.x2-70, self.y2+15, fill=traffic_status_color[traffic_status], outline='')
+        
+        # CẬP NHẬT lại canvas
         self.canvas.update()
 
+    # Qua mỗi nhịp thời gian sẽ xóa thông tin cũ và hiển thị thông tin mới
     def tick(self, time):
+        # Xóa thông tin cũ
         self.canvas.delete(self.time)
         self.canvas.delete(self.overall_avg_wait)
         self.canvas.delete(self.traffic)
 
-        wait_time_string = avg_wait(total_waits)
+        # Display thời gian hiện tại lên bảng này
         self.time = canvas.create_text(self.x1 + 10, self.y1, text = "Current Time = "+ get_current_time(time), anchor = tk.NW, font=('Helvetica', 15), fill='#000080')
-        self.overall_avg_wait = canvas.create_text(self.x1 + 10, self.y1 + 30, text = "Avg. Wait Time = "+ wait_time_string, anchor = tk.NW, font=('Helvetica', 12), fill='#000080')
         
+        # Display thời gian chờ trung bình
+        wait_time_string = avg_wait(total_waits)
+        self.overall_avg_wait = canvas.create_text(self.x1 + 10, self.y1 + 35, text = "Avg. Wait Time = "+ wait_time_string, anchor = tk.NW, font=('Helvetica', 12), fill='#000080')
+        
+        # Display tình trạng giao thông và đổi màu tương sng
         traffic_status = check_traffic_status(get_current_time(time))
         traffic_status_color = {'high': 'red', 'avg': 'orange', 'low': 'blue'}
         self.traffic = canvas.create_text(self.x1 + 10, self.y1 + 68, text = "Traffic Status = "+ traffic_status, anchor = tk.NW, fill=traffic_status_color[traffic_status])
         self.traffic_rectangle = canvas.create_rectangle(self.x1 + 10, self.y1 + 100, self.x2-70, self.y2+15, fill=traffic_status_color[traffic_status], outline='')
         
+        # HIỂN THỊ CÁC PLOT
         a1.cla()
         a1.set_title(f"RFID | Avg. wait time: {avg_wait(rfid_total_waits)}")
         a1.set_ylabel("Wait Time (seconds)")
+        # Step plot, cập nhật theo thời gian
         a1.step([ t for (t, waits) in rfid_total_waits.items() ], [ np.mean(waits) for (t, waits) in rfid_total_waits.items() ], color='#4A9658')
         
         
         a2.cla()
         a2.set_title(f"PAPER | Avg. wait time: {avg_wait(paper_total_waits)}")
         a2.set_xlabel("Time")
+        # Step plot, cập nhật theo thời gian
         a2.step([ t for (t, waits) in paper_total_waits.items() ], [ np.mean(waits) for (t, waits) in paper_total_waits.items() ], color='#FF914C')
         
-
+        # Tính trung bình trượt ở thời điểm hiện tại
         from collections import OrderedDict
         def moving_average(totals_dict, step):
             mean_waits_dict = {}
@@ -474,13 +494,15 @@ class ClockAndData:
             moving_averages_sorted = OrderedDict(sorted(moving_averages.items()))
             return moving_averages_sorted
         
-
+        # Define số step cho trung bình trượt
         step = 10
+        # Tính trung bình trượt cho từng loại cổng
         moving_average_rfid = moving_average(rfid_total_waits, step=step)
         moving_average_paper = moving_average(paper_total_waits, step=step)
 
 
         a3.cla()
+        # Chuyển thành dạng list để dễ dàng truyền vào title của biểu đồ a3 và cập nhật qua thời gian
         current_moving_avg_rfid = list(moving_average_rfid.values())[-1] if moving_average_rfid else 0
         current_moving_avg_paper = list(moving_average_paper.values())[-1] if moving_average_paper else 0
 
@@ -488,6 +510,8 @@ class ClockAndData:
         a3.set_xlabel("Time")
         a3.set_ylabel("Avg. Wait Time (seconds)")
 
+        # Step plot, cập nhật theo thời gian
+        # Plot chứa 2 đường, mỗi đường đại diện cho một cổng
         a3.step([ t for (t, moving_avg) in moving_average_rfid.items() ], [ moving_avg for (t, moving_avg) in moving_average_rfid.items() ], label='RFID', color='#4A9658')
         a3.step([ t for (t, moving_avg) in moving_average_paper.items() ], [ moving_avg for (t, moving_avg) in moving_average_paper.items() ], label='PAPER', color='#FF914C')
 
@@ -497,24 +521,32 @@ class ClockAndData:
         data_plot.draw()
         self.canvas.update()
         
+# Nhận các thông tin về hình ảnh cổng từ và cổng giấy trên giao diện
 graphic_rfid_gates, graphic_paper_gates = graphic_gates(canvas, 340, 10)
 
+# Tính toán tọa độ để hiển thị bảng đồng hồ và data
 clock_and_data_width = 190
 clock_and_data_height = 70
 x1 = 10
+# Bảng ở giữa theo chiều dọc canvas
 y1 = (canvas_height / 2) - (clock_and_data_height / 2)
-
+# Tọa độ trục hoành - phía bên phải của bảng
+x2=x1+clock_and_data_width
+# Tọa độ trục tung - phía dưới của bảng
+y2=y1+clock_and_data_height
 clock = ClockAndData(canvas, 
-                     x1=x1, y1=y1, 
-                     x2=x1+clock_and_data_width, 
-                     y2=y1+clock_and_data_height, 
+                     x1=x1, 
+                     y1=y1, 
+                     x2=x2, 
+                     y2=y2, 
                      time=0)
-env = simpy.Environment()
 
 def create_clock(env):
     """
-        This generator is meant to be used as a SimPy event to update the clock
-        and the data in the UI
+        Tạo đồng hồ để điều chỉnh tốc độ của giả lập khi hiển thị lên UI.
+        Bằng cách điều chỉnh kích thước mỗi nhịp thời gian trong giả lập.
+        Với mỗi giây trôi qua ngoài đời thật, thì bao nhiêu giây trôi qua trong giả lập.
+        secs_passed_in_sim_per_real_sec sẽ là một nhịp giả lập.
     """
     secs_passed_in_sim_per_real_sec = int(input('Seconds passed in simulation per real second: '))
     
@@ -524,9 +556,11 @@ def create_clock(env):
         
 
         
-        
+# TẠO MÔI TRƯỜNG
 env = simpy.Environment()
 
+# Tạo các tài nguyên của môi trường
+# Mỗi tài nguyên chỉ được một xe sử dụng (scan, error) cùng lúc, còn những xe khác phải chờ
 rfid_gate_lines = [simpy.Resource(env, capacity=1) for _ in range(RFID_GATE_LINES)]
 paper_gate_lines = [simpy.Resource(env, capacity=1) for _ in range(PAPER_GATE_LINES)]
 all_gate_lines = [rfid_gate_lines, paper_gate_lines]
@@ -545,7 +579,7 @@ root.mainloop()
 
 
 # Writing data to a JSON file
-with open('output\GUI_events.json', 'w') as outfile:
+with open(r'output\GUI_events.json', 'w') as outfile:
     # input_string = f"""RFID Gates: {RFID_GATE_LINES} | Paper Gates: {PAPER_GATE_LINES} || Paper Employees per Line: {PAPER_EMPS_PER_LINE} | RFID Employees per Line: {RFID_EMPS_PER_LINE}"""
     # config_string = f"""RFID Selection Rate: {RFID_SELECTION_RATE} || RFID Scan Time (Min): {RFID_SCAN_TIME_MIN}| RFID Scan Time (Max): {RFID_SCAN_TIME_MAX} || Paper Scan Time (Min): {PAPER_SCAN_TIME_MIN}| Paper Scan Time (Max): {PAPER_SCAN_TIME_MAX} || Join Rate High Mean: {JOIN_RATE_HIGH_MEAN}| Join Rate High Std: {JOIN_RATE_HIGH_STD} || Join Rate Avg Mean: {JOIN_RATE_AVG_MEAN}| Join Rate Avg Std: {JOIN_RATE_AVG_STD} || Join Rate Low Mean: {JOIN_RATE_LOW_MEAN}| Join Rate Low Std: {JOIN_RATE_LOW_STD} || Error Rate RFID: {ERROR_RATE_RFID}| Error Rate Paper: {ERROR_RATE_PAPER}"""
     json.dump({"RFID GATES": RFID_GATE_LINES, 
