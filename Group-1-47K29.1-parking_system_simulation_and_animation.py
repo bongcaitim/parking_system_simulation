@@ -18,11 +18,11 @@ import os
 ######################
 ##### INPUTS #########
 ######################
-RFID_GATE_LINES = 2
+RFID_GATE_LINES = 3
 PAPER_GATE_LINES = 2
 
 PAPER_EMPS_PER_LINE = 1
-RFID_EMPS_PER_LINE = 0.5
+RFID_EMPS_PER_LINE = 2/3
 
 ######################
 ### CONFIGURATIONS ###
@@ -349,7 +349,7 @@ class QueueGraphics:
     def __init__(self, vehicle_file, vehicle_icon_width, gate_image_file, gate_line_list, canvas, x_top, y_top, emp_icon_file,num_emps):
         # File chứa icon xe 
         self.vehicle_file = vehicle_file
-        # Chiều rộng icon
+        # Chiều rộng icon xe
         self.vehicle_icon_width = vehicle_icon_width
         # File chứa icon cổng 
         self.gate_image_file = gate_image_file
@@ -580,8 +580,6 @@ root.mainloop()
 
 # Writing data to a JSON file
 with open(r'output\GUI_events.json', 'w') as outfile:
-    # input_string = f"""RFID Gates: {RFID_GATE_LINES} | Paper Gates: {PAPER_GATE_LINES} || Paper Employees per Line: {PAPER_EMPS_PER_LINE} | RFID Employees per Line: {RFID_EMPS_PER_LINE}"""
-    # config_string = f"""RFID Selection Rate: {RFID_SELECTION_RATE} || RFID Scan Time (Min): {RFID_SCAN_TIME_MIN}| RFID Scan Time (Max): {RFID_SCAN_TIME_MAX} || Paper Scan Time (Min): {PAPER_SCAN_TIME_MIN}| Paper Scan Time (Max): {PAPER_SCAN_TIME_MAX} || Join Rate High Mean: {JOIN_RATE_HIGH_MEAN}| Join Rate High Std: {JOIN_RATE_HIGH_STD} || Join Rate Avg Mean: {JOIN_RATE_AVG_MEAN}| Join Rate Avg Std: {JOIN_RATE_AVG_STD} || Join Rate Low Mean: {JOIN_RATE_LOW_MEAN}| Join Rate Low Std: {JOIN_RATE_LOW_STD} || Error Rate RFID: {ERROR_RATE_RFID}| Error Rate Paper: {ERROR_RATE_PAPER}"""
     json.dump({"RFID GATES": RFID_GATE_LINES, 
                "PAPER GATES": PAPER_GATE_LINES,
                "RFID EMPLOYEES": int(RFID_GATE_LINES * RFID_EMPS_PER_LINE),
